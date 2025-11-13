@@ -4,10 +4,12 @@ export default function QuickActions({
   setAllToCompleted,
   resetAll,
   setRandomTechToInProgress,
+  exportTechnologies,
 }: {
   setAllToCompleted: () => void;
   resetAll: () => void;
   setRandomTechToInProgress: () => void;
+  exportTechnologies: () => void;
 }) {
   return (
     <div className="quick-actions-section">
@@ -20,6 +22,7 @@ export default function QuickActions({
         <button onClick={setRandomTechToInProgress}>
           Случайный выбор следующей технологии
         </button>
+        <button onClick={exportTechnologies}>Экспортировать</button>
       </div>
     </div>
   );

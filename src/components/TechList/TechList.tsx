@@ -1,8 +1,30 @@
-import { FilterStatus, Status, Tech } from "../../types";
+import { Tech, TechFilters } from "../../types";
 import { getNextStatus } from "../../utils/status";
 import { getTechnologiesByValue, sortById } from "../../utils/tech";
 import TechCard from "../TechCard/TechCard";
 import "./style.css";
+
+function getTechnologiesByFilters(
+  technologies: Tech[],
+  filters: TechFilters
+): Tech[] {
+  let results = technologies;
+  if (filters.status) {
+    const resultsByStatus = getTechnologiesByValue(
+      technologies,
+      "status",
+      filters.status
+    );
+    results = resultsByStatus;
+  }
+  if (filters.description && filters.description.length) {
+    results = results.filter((t) => t.title.startsWith(filters.description!));
+  }
+  if (filters.title && filters.title.length) {
+    results = results.filter((t) => t.title.startsWith(filters.title!));
+  }
+  return results;
+}
 
 export default function TechList({
   technologies,
@@ -11,11 +33,9 @@ export default function TechList({
 }: {
   technologies: Tech[];
   setTechnologies: (arg0: Tech[]) => void;
-  filters: { status: FilterStatus };
+  filters: TechFilters;
 }) {
-  const filteredTechnologies = filters.status
-    ? getTechnologiesByValue<Status>(technologies, "status", filters.status)
-    : technologies;
+  const filteredTechnologies = getTechnologiesByFilters(technologies, filters);
 
   return (
     <div className="tech-list">
@@ -37,6 +57,7 @@ export default function TechList({
             title={t.title}
             description={t.description}
             status={t.status}
+            notes={t.notes}
           />
         ))}
       </div>

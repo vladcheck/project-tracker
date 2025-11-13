@@ -1,4 +1,4 @@
-import { Status } from "../../types";
+import { Status, Tech } from "../../types";
 import Icon from "../Icon/Icon";
 import "./style.css";
 
@@ -21,13 +21,10 @@ export default function TechCard({
   status,
   title,
   description,
+  notes = "",
 }: {
-  id: string;
   setStatus: (id: string) => void;
-  status: Status;
-  title: string;
-  description: string;
-}) {
+} & Tech) {
   return (
     <div aria-label="Технология" className={`tech-card ${status}`}>
       <div className="tech-card-actions">
@@ -36,22 +33,14 @@ export default function TechCard({
           aria-label="Редактировать технологию"
           className="edit-tech-button action"
         >
-          <Icon
-            src="/public/icons/icons8-crayon-48.webp"
-            alt="edit"
-            size={20}
-          />
+          <Icon src="/icons/icons8-crayon-48.webp" alt="edit" size={20} />
         </button>
         <button
           role="button"
           aria-label="Удалить технологию"
           className="delete-tech-button action"
         >
-          <Icon
-            src="/public/icons/icons8-cross-50.webp"
-            alt="delete"
-            size={20}
-          />
+          <Icon src="/icons/icons8-cross-50.webp" alt="delete" size={20} />
         </button>
       </div>
       <div
@@ -63,6 +52,10 @@ export default function TechCard({
         <h6 className="title">{title}</h6>
         <p className="description">{description}</p>
         <span className="status">Статус: {translateStatus(status)}</span>
+        <br />
+        <small aria-label="notes" className="notes">
+          <i>{notes}</i>
+        </small>
       </div>
     </div>
   );

@@ -1,16 +1,11 @@
-import { FilterStatus } from "../../types";
+import { FiltersProps } from "./types";
 
-interface FiltersProps {
-  filters: { status: FilterStatus };
-  setFilters: (status: { status: FilterStatus }) => void;
-}
-
-export default function Filters({ filters, setFilters }: FiltersProps) {
+export default function StatusFilters({ filters, setFilters }: FiltersProps) {
   return (
-    <div className="filters-sectoin">
+    <div className="status-filters">
       <h2>Показать технологии по статусу</h2>
-      <div className="filters row">
-        <button onClick={() => setFilters({ ...filters, status: null })}>
+      <div className="row">
+        <button onClick={() => setFilters({ ...filters, status: undefined })}>
           Все
         </button>
         <button

@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import ProgressHeader from "./components/ProgressHeader/ProgressHeader";
 import "./App.css";
-import { techMock } from "./mock";
 import { getTechnologiesByValue } from "./utils/tech";
 import Statistics from "./components/Statistics/Statistics";
 import QuickActions from "./components/QuickActions/QuickActions";
-import { FilterStatus, Status, Tech } from "./types";
-import Filters from "./components/Filters/Filters";
+import { Status, Tech, TechFilters } from "./types";
 import TechList from "./components/TechList/TechList";
+import TechFilterPanel from "./components/TechFilterPanel/TechFilterPanel";
+import useLocalStorage from "./hooks/useLocalStorage";
+import { techMock } from "./mock";
+
+const TECHNOLOGIES_KEY = "technologies";
 
 export default function App() {
-  const [technologies, setTechnologies] = useState(techMock);
-  const [filters, setFilters] = useState<{ status: FilterStatus }>({
-    status: null,
-  });
+  const [technologies, setTechnologies] = useLocalStorage<Tech[]>(
+    "technologies",
+    techMock
+  );
+
+  const [filters, setFilters] = useLocalStorage<TechFilters>("filters", {});
+
+  useEffect(() => {
+    localStorage.setItem(TECHNOLOGIES_KEY, JSON.stringify(technologies));
+  }, [technologies]);
 
   const setRandomTechToInProgress = () => {
     const notStartedTechCount = getTechnologiesByValue(
@@ -90,8 +99,22 @@ export default function App() {
             setTechnologies(notStartedTechnologies);
           }}
           setRandomTechToInProgress={setRandomTechToInProgress}
+          exportTechnologies={() => {
+            const blob = new Blob([JSON.stringify(technologies, null, 2)], {
+              type: "json",
+            });
+            const urlForDownload = window.URL.createObjectURL(blob);
+            const linkElement = document.createElement("a");
+
+            linkElement.href = urlForDownload;
+            linkElement.download = "technologies.json";
+            linkElement.click();
+
+            URL.revokeObjectURL(urlForDownload); // Free memory
+          }}
         />
-        <Filters filters={filters} setFilters={setFilters} />
+        <TechFilterPanel filters={filters} setFilters={setFilters} />
+
         <TechList
           technologies={technologies}
           setTechnologies={setTechnologies}

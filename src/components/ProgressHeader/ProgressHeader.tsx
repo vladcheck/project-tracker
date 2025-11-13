@@ -1,4 +1,4 @@
-import "./ProgressHeader.css";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 export default function ProgressHeader({
   totalCount,
@@ -21,13 +21,11 @@ export default function ProgressHeader({
         <label className="percentage-label" htmlFor="learning-progress">
           Изучено: {percentage}%
         </label>
-        <progress
+        <ProgressBar
           aria-busy="false"
-          id="learning-progress"
           role="progressbar"
-          max={100}
-          value={percentage}
-        ></progress>
+          progress={percentage}
+        ></ProgressBar>
       </div>
     </div>
   );
