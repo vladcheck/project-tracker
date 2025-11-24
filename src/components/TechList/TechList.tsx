@@ -1,6 +1,12 @@
+import { useEffect } from "react";
+import { TECHNOLOGIES_KEY } from "../../App";
 import { Tech, TechFilters } from "../../types";
 import { getNextStatus } from "../../utils/status";
-import { getTechnologiesByValue, sortById } from "../../utils/tech";
+import {
+  getTechnologiesByStatus,
+  getTechnologiesByValue,
+  sortById,
+} from "../../utils/tech";
 import TechCard from "../TechCard/TechCard";
 import "./style.css";
 
@@ -9,13 +15,9 @@ function getTechnologiesByFilters(
   filters: TechFilters,
 ): Tech[] {
   let results = technologies;
+
   if (filters.status) {
-    const resultsByStatus = getTechnologiesByValue(
-      technologies,
-      "status",
-      filters.status,
-    );
-    results = resultsByStatus;
+    results = getTechnologiesByValue(technologies, "status", filters.status);
   }
   if (filters.description && filters.description.length) {
     results = results.filter((t) => t.title.startsWith(filters.description!));
@@ -37,7 +39,13 @@ export default function TechList({
 }) {
   const filteredTechnologies = getTechnologiesByFilters(technologies, filters);
 
-  console.log(technologies);
+  const onNotesChange = (techId: string, newNote: string) => {
+    setTechnologies(
+      technologies.map((tech) =>
+        tech.id === techId ? { ...tech, notes: newNote } : tech,
+      ),
+    );
+  };
 
   return (
     <div className="tech-list">
@@ -48,6 +56,7 @@ export default function TechList({
         {filteredTechnologies.length > 0 ? (
           filteredTechnologies.map((t) => (
             <TechCard
+              onNotesChange={onNotesChange}
               setStatus={(id: string) => {
                 const tech = technologies.filter((t) => t.id === id)[0];
                 tech.status = getNextStatus(tech.status);

@@ -9,7 +9,7 @@ import TechFilterPanel from "./components/TechFilterPanel/TechFilterPanel";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { techMock } from "./mock";
 
-const TECHNOLOGIES_KEY = "technologies";
+export const TECHNOLOGIES_KEY = "technologies";
 
 function exportTechnologies(technologies: Tech[]) {
   const blob = new Blob([JSON.stringify(technologies, null, 2)], {

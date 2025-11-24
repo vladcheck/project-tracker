@@ -1,6 +1,7 @@
 import { Status, Tech } from "../../types";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
+import TechNotes from "../TechNotes/TechNotes";
 import "./style.css";
 
 const t: Record<Status, string> = {
@@ -16,9 +17,11 @@ function translateStatus(status: Status): string {
 
 export default function TechCard({
   data,
+  onNotesChange,
   setStatus,
 }: {
   data: Tech;
+  onNotesChange: (...args: any[]) => void;
   setStatus: (id: string) => void;
 }) {
   return (
@@ -45,8 +48,10 @@ export default function TechCard({
       </div>
       <div
         className="tech-info"
-        onClick={() => {
-          setStatus(data.id);
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setStatus(data.id);
+          }
         }}
       >
         <h6 className="title">{data.title}</h6>
@@ -55,12 +60,12 @@ export default function TechCard({
         {data.dueDate && (
           <span className="due-date">Дедлайн: {data.dueDate}</span>
         )}
-        <br />
-        {data.notes ? (
-          <small aria-label="notes" className="notes">
-            <i>{data.notes}</i>
-          </small>
-        ) : null}
+        <hr style={{ margin: "10px 0" }} />
+        <TechNotes
+          techId={data.id}
+          onNotesChange={onNotesChange}
+          notes={data.notes}
+        />
       </div>
     </div>
   );
