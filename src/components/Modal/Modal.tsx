@@ -32,7 +32,7 @@ export default function Modal({
 
         <div className="modal-content">
           {children}
-          <Button className="close-button" onClick={onClose} text="*" />
+          <Button className="close-button" onClick={onClose} title="*" />
         </div>
       </div>
     </div>

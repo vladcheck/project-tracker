@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Status, Tech } from "../../types";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
-import Modal from "../Modal/Modal";
 import "./style.css";
 
 const t: Record<Status, string> = {
@@ -17,34 +15,20 @@ function translateStatus(status: Status): string {
 }
 
 export default function TechCard({
-  id,
+  data,
   setStatus,
-  status,
-  title,
-  description,
-  notes = "",
-}: Tech & {
+}: {
+  data: Tech;
   setStatus: (id: string) => void;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div aria-label="Технология" className={`tech-card ${status}`}>
+    <div aria-label="Технология" className={`tech-card ${data.status}`}>
       <div className="tech-card-actions">
         <Button
-          onClick={() => (
-            <Modal
-              title="Редактирование"
-              isOpen={isOpen}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-            />
-          )}
           role="button"
           aria-label="Редактировать технологию"
           className="edit-tech-button action"
-          text="Редактировать технологию"
+          title="Редактировать технологию"
           icon={
             <Icon src="/icons/icons8-crayon-48.webp" alt="edit" size={20} />
           }
@@ -53,7 +37,7 @@ export default function TechCard({
           role="button"
           aria-label="Удалить технологию"
           className="delete-tech-button action"
-          text="Удалить технологию"
+          title="Удалить технологию"
           icon={
             <Icon src="/icons/icons8-cross-50.webp" alt="delete" size={20} />
           }
@@ -62,16 +46,19 @@ export default function TechCard({
       <div
         className="tech-info"
         onClick={() => {
-          setStatus(id);
+          setStatus(data.id);
         }}
       >
-        <h6 className="title">{title}</h6>
-        <p className="description">{description}</p>
-        <span className="status">Статус: {translateStatus(status)}</span>
+        <h6 className="title">{data.title}</h6>
+        <p className="description">{data.description}</p>
+        <span className="status">Статус: {translateStatus(data.status)}</span>
+        {data.dueDate && (
+          <span className="due-date">Дедлайн: {data.dueDate}</span>
+        )}
         <br />
-        {notes ? (
+        {data.notes ? (
           <small aria-label="notes" className="notes">
-            <i>{notes}</i>
+            <i>{data.notes}</i>
           </small>
         ) : null}
       </div>

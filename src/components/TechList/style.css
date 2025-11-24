@@ -1,3 +1,10 @@
+.tech-list {
+    padding: 1rem;
+    width: clamp(200px, 50vw, 600px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 .technologies {
     display: flex;
     flex-direction: column;

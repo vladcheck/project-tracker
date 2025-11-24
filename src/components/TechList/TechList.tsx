@@ -6,14 +6,14 @@ import "./style.css";
 
 function getTechnologiesByFilters(
   technologies: Tech[],
-  filters: TechFilters
+  filters: TechFilters,
 ): Tech[] {
   let results = technologies;
   if (filters.status) {
     const resultsByStatus = getTechnologiesByValue(
       technologies,
       "status",
-      filters.status
+      filters.status,
     );
     results = resultsByStatus;
   }
@@ -45,23 +45,22 @@ export default function TechList({
         Результаты: {filteredTechnologies.length}
       </span>
       <div className="technologies">
-        {filteredTechnologies.map((t) => (
-          <TechCard
-            setStatus={(id: string) => {
-              const tech = technologies.filter((t) => t.id === id)[0];
-              tech.status = getNextStatus(tech.status);
-              setTechnologies(
-                sortById([...technologies.filter((t) => t.id !== id), tech])
-              );
-            }}
-            id={t.id}
-            key={t.id}
-            title={t.title}
-            description={t.description}
-            status={t.status}
-            notes={t.notes}
-          />
-        ))}
+        {filteredTechnologies.length > 0 ? (
+          filteredTechnologies.map((t) => (
+            <TechCard
+              setStatus={(id: string) => {
+                const tech = technologies.filter((t) => t.id === id)[0];
+                tech.status = getNextStatus(tech.status);
+                setTechnologies(
+                  sortById([...technologies.filter((t) => t.id !== id), tech]),
+                );
+              }}
+              data={t}
+            />
+          ))
+        ) : (
+          <span>По данным фильтрам ничего не нашлось :(</span>
+        )}
       </div>
     </div>
   );

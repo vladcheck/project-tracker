@@ -6,12 +6,8 @@ export interface Tech {
   description: string;
   status: Status;
   notes?: string;
+  dependsOn?: Tech[];
+  dueDate?: string;
 }
 
-export interface TechFilters {
-  id?: string;
-  title?: string;
-  description?: string;
-  status?: Status;
-  notes?: string;
-}
+export type TechFilters = Partial<Tech>; 

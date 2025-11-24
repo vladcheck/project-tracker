@@ -7,23 +7,23 @@ export default function StatusFilters({ filters, setFilters }: FiltersProps) {
     <div className="status-filters">
       <Button
         onClick={() => setFilters({ ...filters, status: undefined })}
-        text="Все"
+        title="Все"
       />
       <Button
         onClick={() => setFilters({ ...filters, status: "not-started" })}
-        text="Не начатые"
+        title="Не начатые"
       />
       <Button
         onClick={() => setFilters({ ...filters, status: "in-progress" })}
-        text=" В процессе изучения"
+        title=" В процессе изучения"
       />
       <Button
         onClick={() => setFilters({ ...filters, status: "completed" })}
-        text="Изученные"
+        title="Изученные"
       />
       <Button
         onClick={() => setFilters({ ...filters, status: "cancelled" })}
-        text="Отмененные"
+        title="Отмененные"
       />
     </div>
   );

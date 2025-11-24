@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import ProgressHeader from "./components/ProgressHeader/ProgressHeader";
 import "./App.css";
-import { getTechnologiesByValue } from "./utils/tech";
+import { getTechnologiesByStatus } from "./utils/tech";
 import Statistics from "./components/Statistics/Statistics";
 import QuickActions from "./components/QuickActions/QuickActions";
-import { Status, Tech, TechFilters } from "./types";
+import { Tech, TechFilters } from "./types";
 import TechList from "./components/TechList/TechList";
 import TechFilterPanel from "./components/TechFilterPanel/TechFilterPanel";
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -12,37 +11,24 @@ import { techMock } from "./mock";
 
 const TECHNOLOGIES_KEY = "technologies";
 
-function validateTechnologiesInStorage(): Tech[] {
-  try {
-    const stored = localStorage.getItem(TECHNOLOGIES_KEY);
-    if (!stored) return techMock;
+function exportTechnologies(technologies: Tech[]) {
+  const blob = new Blob([JSON.stringify(technologies, null, 2)], {
+    type: "json",
+  });
+  const urlForDownload = window.URL.createObjectURL(blob);
+  const linkElement = document.createElement("a");
 
-    const parsed = JSON.parse(stored) as Tech[];
-    const mockIds = new Set(techMock.map((t) => t.id));
-    const hasAllMockIds =
-      parsed.length === techMock.length &&
-      parsed.every((t) => mockIds.has(t.id));
+  linkElement.href = urlForDownload;
+  linkElement.download = "technologies.json";
+  linkElement.click();
 
-    if (!hasAllMockIds) {
-      console.warn(
-        "ID из localStorage не совпадают, беру ID из исходного объекта.",
-      );
-      localStorage.removeItem(TECHNOLOGIES_KEY);
-      return techMock;
-    }
-
-    return parsed;
-  } catch (error) {
-    console.error("Ошибка валидации:", error);
-    localStorage.removeItem(TECHNOLOGIES_KEY);
-    return techMock;
-  }
+  URL.revokeObjectURL(urlForDownload);
 }
 
 export default function App() {
   const [technologies, setTechnologies] = useLocalStorage<Tech[]>(
     "technologies",
-    validateTechnologiesInStorage(),
+    techMock,
   );
 
   const [filters, setFilters] = useLocalStorage<TechFilters>("filters", {});
@@ -52,11 +38,11 @@ export default function App() {
   }, [technologies]);
 
   const setRandomTechToInProgress = () => {
-    const notStartedTechCount = getTechnologiesByValue(
+    const notStartedTechCount = getTechnologiesByStatus(
       technologies,
-      "status",
-      "not-started"
+      "not-started",
     ).length;
+
     if (notStartedTechCount > 0) {
       while (true) {
         const randomI = Math.floor(Math.random() * technologies.length);
@@ -69,7 +55,7 @@ export default function App() {
               t.status = "in-progress";
             }
             return t;
-          })
+          }),
         );
         break;
       }
@@ -78,45 +64,25 @@ export default function App() {
 
   return (
     <div id="root">
-      <header>
+      <aside>
         <h1>
           Roadmapper<sup style={{ fontSize: "8px" }}>TM</sup>
         </h1>
-        <div>
-          <h2>Статистика</h2>
-          <ProgressHeader
-            totalCount={technologies.length}
-            completedCount={
-              getTechnologiesByValue(technologies, "status", "completed").length
-            }
-          />
-          <Statistics
-            stats={{
-              cancelled: getTechnologiesByValue<Status>(
-                technologies,
-                "status",
-                "cancelled"
-              ).length,
-              inProgress: getTechnologiesByValue<Status>(
-                technologies,
-                "status",
-                "in-progress"
-              ).length,
-              completed: getTechnologiesByValue<Status>(
-                technologies,
-                "status",
-                "completed"
-              ).length,
-              notStarted: getTechnologiesByValue<Status>(
-                technologies,
-                "status",
-                "not-started"
-              ).length,
-            }}
-          />
-        </div>
-      </header>
-      <aside>
+        <Statistics
+          stats={{
+            totalCount: technologies.length,
+            completedCount: getTechnologiesByStatus(technologies, "completed")
+              .length,
+            cancelled: getTechnologiesByStatus(technologies, "cancelled")
+              .length,
+            inProgress: getTechnologiesByStatus(technologies, "in-progress")
+              .length,
+            completed: getTechnologiesByStatus(technologies, "completed")
+              .length,
+            notStarted: getTechnologiesByStatus(technologies, "not-started")
+              .length,
+          }}
+        />
         <QuickActions
           setAllToCompleted={() => {
             const completedTechnologies: Tech[] = technologies.map((t) => {
@@ -132,17 +98,7 @@ export default function App() {
           }}
           setRandomTechToInProgress={setRandomTechToInProgress}
           exportTechnologies={() => {
-            const blob = new Blob([JSON.stringify(technologies, null, 2)], {
-              type: "json",
-            });
-            const urlForDownload = window.URL.createObjectURL(blob);
-            const linkElement = document.createElement("a");
-
-            linkElement.href = urlForDownload;
-            linkElement.download = "technologies.json";
-            linkElement.click();
-
-            URL.revokeObjectURL(urlForDownload); // Free memory
+            exportTechnologies(technologies);
           }}
         />
         <TechFilterPanel filters={filters} setFilters={setFilters} />
