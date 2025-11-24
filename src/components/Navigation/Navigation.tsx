@@ -9,6 +9,9 @@ export default function Navigation() {
           <NavLink to="/">Главная</NavLink>
         </li>
         <li>
+          <NavLink to="/statistics">Статистика</NavLink>
+        </li>
+        <li>
           <NavLink to="/technologies">Все технологии</NavLink>
         </li>
         <li>
