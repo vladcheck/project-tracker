@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "pnpm build",
-    "deploy": "pnpm predeploy && gh-pages -d dist"
+    "gh:predeploy": "pnpm build",
+    "gh:deploy": "pnpm gh:predeploy && gh-pages -d dist"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.139.3",
