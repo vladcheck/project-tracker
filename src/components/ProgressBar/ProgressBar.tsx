@@ -14,7 +14,7 @@ interface ProgressBarProps {
 export default function ProgressBar({
   progress, // Текущее значение прогресса (от 0 до 100)
   label = "", // Подпись к прогресс-бару
-  color = "#4CAF50", // Цвет заполнения
+  color = "#ebac378e", // Цвет заполнения
   showPercentage = true, // Показывать ли процент
   animated = false, // Анимировать ли заполнение
 }: ProgressBarProps) {
@@ -27,9 +27,6 @@ export default function ProgressBar({
       {(label || showPercentage) && (
         <div className="progress-bar-header">
           {label && <span className="progress-label">{label}</span>}
-          {showPercentage && (
-            <span className="progress-percentage">{normalizedProgress}%</span>
-          )}
         </div>
       )}
 

@@ -1,23 +1,25 @@
-progress-bar-container {
+.progress-bar-container {
     display: flex;
-    max-width: 200px;
+    min-width: 200px;
     height: 2rem;
+    justify-content: center;
+        align-items: center;
 
     border: 2px solid rgba(128, 85, 46, 0.5);
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
-progress-bar-outer {
+.progress-bar-outer {
     flex: 1;
+    height: 100%;
     border-radius: 2px;
     background-color: #f0f0f0;
     border-radius: 10px;
     overflow: hidden;
 }
 
-progress-bar-inner {
+.progress-bar-inner {
     background-image: linear-gradient(left, var(--accent-clr), rgb(177, 121, 48));
-
     background-size: 100% 100%;
 
     height: 2rem;
