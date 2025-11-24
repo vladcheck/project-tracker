@@ -40,8 +40,8 @@ export default function App() {
       >
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
             <Route element={<Layout />}>
+              <Route path="/" element={<HomePage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/technologies" element={<TechnologyListPage />} />
               <Route path="/add-technology" element={<AddTechnologyPage />} />
