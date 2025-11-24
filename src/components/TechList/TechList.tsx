@@ -1,12 +1,6 @@
-import { useEffect } from "react";
-import { TECHNOLOGIES_KEY } from "../../App";
 import { Tech, TechFilters } from "../../types";
 import { getNextStatus } from "../../utils/status";
-import {
-  getTechnologiesByStatus,
-  getTechnologiesByValue,
-  sortById,
-} from "../../utils/tech";
+import { getTechnologiesByValue, sortById } from "../../utils/tech";
 import TechCard from "../TechCard/TechCard";
 import "./style.css";
 
@@ -56,6 +50,7 @@ export default function TechList({
         {filteredTechnologies.length > 0 ? (
           filteredTechnologies.map((t) => (
             <TechCard
+              key={t.id}
               onNotesChange={onNotesChange}
               setStatus={(id: string) => {
                 const tech = technologies.filter((t) => t.id === id)[0];

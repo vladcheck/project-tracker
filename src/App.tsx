@@ -7,17 +7,13 @@ import { Tech, TechFilters } from "./types";
 import TechList from "./components/TechList/TechList";
 import TechFilterPanel from "./components/TechFilterPanel/TechFilterPanel";
 import useLocalStorage from "./hooks/useLocalStorage";
-import { techMock } from "./mock";
-import { Link } from "@tanstack/react-router";
-import Icon from "./components/Icon/Icon";
+import useTechnologies from "./hooks/useTechnologies";
 
 export const TECHNOLOGIES_KEY = "technologies";
 
 export default function App() {
-  const [technologies, setTechnologies] = useLocalStorage<Tech[]>(
-    "technologies",
-    techMock,
-  );
+  const { technologies, setTechnologies, updateStatus, progress } =
+    useTechnologies();
 
   const [filters, setFilters] = useLocalStorage<TechFilters>("filters", {});
 
@@ -35,17 +31,10 @@ export default function App() {
       while (true) {
         const randomI = Math.floor(Math.random() * technologies.length);
 
-        if (technologies[randomI].status !== "not-started") continue;
-
-        setTechnologies(
-          technologies.map((t, i) => {
-            if (i === randomI) {
-              t.status = "in-progress";
-            }
-            return t;
-          }),
-        );
-        break;
+        if (technologies[randomI].status === "not-started") {
+          updateStatus(technologies[randomI].id);
+          break;
+        }
       }
     }
   };
@@ -63,6 +52,7 @@ export default function App() {
         </header>
         <Statistics
           stats={{
+            progress,
             totalCount: technologies.length,
             completedCount: getTechnologiesByStatus(technologies, "completed")
               .length,

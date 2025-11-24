@@ -4,6 +4,7 @@ export default function Statistics({
   stats,
 }: {
   stats: {
+    progress: number;
     completedCount: number;
     totalCount: number;
     cancelled: number;
@@ -12,12 +13,6 @@ export default function Statistics({
     notStarted: number;
   };
 }) {
-  const percentage = Math.round(
-    stats.completedCount > 0
-      ? (stats.completedCount * 100) / stats.totalCount
-      : 0,
-  );
-
   return (
     <div className="statistics">
       <h2>Статистика</h2>
@@ -29,13 +24,13 @@ export default function Statistics({
       </div>
       <div className="progress-container row">
         <label className="percentage-label" htmlFor="learning-progress">
-          Изучено: {percentage}%
+          Изучено: {stats.progress}%
         </label>
         <ProgressBar
           id="learning-progress"
           aria-busy="false"
           role="progressbar"
-          progress={percentage}
+          progress={stats.progress}
         ></ProgressBar>
       </div>
       <div className="row">
