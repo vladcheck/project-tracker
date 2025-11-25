@@ -13,16 +13,22 @@ export const getTechnologiesByValue = <T>(
 export const getTechnologiesByStatus = (technologies: Tech[], status: Status) =>
   technologies.filter((t) => t.status === status);
 
-export function exportTechnologies(technologies: Tech[]) {
-  const blob = new Blob([JSON.stringify(technologies, null, 2)], {
-    type: "json",
-  });
-  const urlForDownload = window.URL.createObjectURL(blob);
-  const linkElement = document.createElement("a");
+export const exportTechnologies = (technologies: Tech[]) => {
+  try {
+    const dataStr = JSON.stringify(technologies, null, 2);
+    const dataBlob = new Blob([dataStr], { type: "application/json" });
 
-  linkElement.href = urlForDownload;
-  linkElement.download = "technologies.json";
-  linkElement.click();
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `technologies_${new Date().toISOString().split("T")[0]}.json`;
 
-  URL.revokeObjectURL(urlForDownload);
-}
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error(err);
+  }
+};
