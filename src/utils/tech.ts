@@ -32,3 +32,29 @@ export const exportTechnologies = (technologies: Tech[]) => {
     console.error(err);
   }
 };
+
+// импорт данных из JSON-файла
+export const importTechnologiesFromJSON = (event: any, setTechnologies: (t: Tech[]) => void) => { 
+  const file = event.target.files[0]; 
+  if (!file) return; 
+ 
+  const reader = new FileReader(); 
+   
+  reader.onload = (e) => { 
+    try { 
+      if (!e.target || !e.target.result) throw new Error("Нет данных");
+      const imported = JSON.parse(e.target.result.toString()); 
+       
+      if (!Array.isArray(imported)) { 
+        throw new Error('Неверный формат данных'); 
+      }
+      setTechnologies(imported); 
+      console.log(`Импортировано ${imported.length} технологий`); 
+    } catch (err) { 
+      console.error(`Ошибка импорта: ${err}`); 
+    } 
+  }; 
+   
+  reader.readAsText(file); 
+  event.target.value = '';  // очищаем input после чтения файла
+};

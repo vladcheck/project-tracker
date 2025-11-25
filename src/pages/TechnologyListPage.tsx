@@ -5,7 +5,11 @@ import TechList from "../components/TechList/TechList";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTechnologies from "../hooks/useTechnologies";
 import { Tech, TechFilters } from "../types";
-import { exportTechnologies, getTechnologiesByStatus } from "../utils/tech";
+import {
+  exportTechnologies,
+  getTechnologiesByStatus,
+  importTechnologiesFromJSON,
+} from "../utils/tech";
 import "./TechnologyListPage.css";
 
 const TECHNOLOGIES_KEY = "technologies";
@@ -39,25 +43,28 @@ export default function TechnologyListPage() {
   return (
     <main>
       <div className="top-panel">
-      <QuickActions
-        setAllToCompleted={() => {
-          const completedTechnologies: Tech[] = technologies.map((t) => {
-            return { ...t, status: "completed" };
-          });
-          setTechnologies(completedTechnologies);
-        }}
-        resetAll={() => {
-          const notStartedTechnologies: Tech[] = technologies.map((t) => {
-            return { ...t, status: "not-started" };
-          });
-          setTechnologies(notStartedTechnologies);
-        }}
-        setRandomTechToInProgress={setRandomTechToInProgress}
-        exportTechnologies={() => {
-          exportTechnologies(technologies);
-        }}
-      />
-      <TechFilterPanel filters={filters} setFilters={setFilters} />
+        <QuickActions
+          setAllToCompleted={() => {
+            const completedTechnologies: Tech[] = technologies.map((t) => {
+              return { ...t, status: "completed" };
+            });
+            setTechnologies(completedTechnologies);
+          }}
+          resetAll={() => {
+            const notStartedTechnologies: Tech[] = technologies.map((t) => {
+              return { ...t, status: "not-started" };
+            });
+            setTechnologies(notStartedTechnologies);
+          }}
+          setRandomTechToInProgress={setRandomTechToInProgress}
+          exportTechnologies={() => {
+            exportTechnologies(technologies);
+          }}
+          importTechnologies={(e: any) => {
+            importTechnologiesFromJSON(e, setTechnologies);
+          }}
+        />
+        <TechFilterPanel filters={filters} setFilters={setFilters} />
       </div>
       <TechList filters={filters} />
     </main>

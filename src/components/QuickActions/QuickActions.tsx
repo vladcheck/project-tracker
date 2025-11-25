@@ -2,17 +2,21 @@ import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import "./style.css";
 
+interface QuickActionsProps {
+  setAllToCompleted: () => void;
+  resetAll: () => void;
+  setRandomTechToInProgress: () => void;
+  exportTechnologies: () => void;
+  importTechnologies: (e: any) => void;
+}
+
 export default function QuickActions({
   setAllToCompleted,
   resetAll,
   setRandomTechToInProgress,
   exportTechnologies,
-}: {
-  setAllToCompleted: () => void;
-  resetAll: () => void;
-  setRandomTechToInProgress: () => void;
-  exportTechnologies: () => void;
-}) {
+  importTechnologies,
+}: QuickActionsProps) {
   return (
     <div className="quick-actions-section">
       <h2>Быстрые действия</h2>
@@ -52,7 +56,13 @@ export default function QuickActions({
               alt="download as json"
             />
           }
-          title="Экспортировать"
+          title="Экспортировать в JSON"
+        />
+        <Button
+          onClick={(e) => {
+            importTechnologies(e);
+          }}
+          title="Импортировать JSON"
         />
       </div>
     </div>
