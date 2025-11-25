@@ -62,7 +62,13 @@ export default function QuickActions({
           onClick={(e) => {
             importTechnologies(e);
           }}
-          name="Импортировать JSON"
+          name="Импортировать технологии"
+          icon={
+            <Icon
+              src="/icons/icons8-import-48.png"
+              alt="import technologies as json"
+            />
+          }
         />
       </div>
     </div>
