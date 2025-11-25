@@ -4,12 +4,12 @@ import "./Modal.css";
 export default function Modal({
   isOpen,
   onClose,
-  title,
+  name,
   children,
 }: PropsWithChildren & {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  name: string;
 }) {
   if (!isOpen) {
     return null;
@@ -25,7 +25,7 @@ export default function Modal({
     <div className="modal-background" onClick={handleBackgroundClick}>
       <div className="modal-window">
         <div className="modal-header">
-          <h2>{title}</h2>
+          <h2>{name}</h2>
           <button className="close-button" onClick={onClose}>
             ×
           </button>

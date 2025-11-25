@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Status, Tech } from "../../types";
 import translate from "../../utils/i18n";
 import Row from "../Row/Row";
-import "./AddTechnologyForm.css";
+import Form from "../Form/Form";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 interface AddTechnologyFormProps {
   onSave: (arg0: any) => void;
@@ -24,16 +25,16 @@ function validateForm(
 ) {
   const newErrors: Partial<Record<keyof Tech, string>> = {};
 
-  if (!formData.title.trim()) {
-    newErrors.title = "Название технологии обязательно";
+  if (!formData.name.trim()) {
+    newErrors.name = "Название технологии обязательно";
   }
 
-  if (!formData.title.trim()) {
-    newErrors.title = "Название технологии обязательно";
-  } else if (formData.title.trim().length < 2) {
-    newErrors.title = "Название должно содержать минимум 2 символа";
-  } else if (formData.title.trim().length > 50) {
-    newErrors.title = "Название не должно превышать 50 символов";
+  if (!formData.name.trim()) {
+    newErrors.name = "Название технологии обязательно";
+  } else if (formData.name.trim().length < 2) {
+    newErrors.name = "Название должно содержать минимум 2 символа";
+  } else if (formData.name.trim().length > 50) {
+    newErrors.name = "Название не должно превышать 50 символов";
   }
 
   if (!formData.description.trim()) {
@@ -71,7 +72,7 @@ export default function AddTechnologyForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    title: initialData?.title || "", // название технологии
+    name: initialData?.name || "", // название технологии
     description: initialData?.description || "", // описание
     status: initialData?.status || "not-started", // статус изучения
     category: initialData?.category || "", // категория
@@ -82,7 +83,6 @@ export default function AddTechnologyForm({
   });
   const [errors, setErrors] = useState<Errors>({});
   const [isFormValid, setIsFormValid] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
 
   const updateFormData = (newEntries: Partial<Tech>) => {
     setFormData({ ...formData, ...newEntries });
@@ -150,7 +150,7 @@ export default function AddTechnologyForm({
   }, [formData]);
 
   return (
-    <form id="add-technology-form" ref={formRef}>
+    <Form id="add-technology-form">
       <div
         role="status"
         aria-live="polite"
@@ -164,24 +164,19 @@ export default function AddTechnologyForm({
       <Row>
         <label htmlFor="technology-name">Название</label>
         <div className="input-container required">
-          <label htmlFor="title" className="required">
-            Название технологии
-          </label>
           <input
-            id="title"
-            name="title"
+            id="technology-name"
+            name="name"
             type="text"
-            value={formData.title}
+            value={formData.name}
             onChange={handleChange}
-            className={errors.title ? "error" : ""}
+            className={errors.name ? "error" : ""}
             placeholder="Например: React, Node.js, TypeScript"
-            aria-describedby={errors.title ? "title-error" : undefined}
+            aria-describedby={errors.name ? "name-error" : undefined}
             required
           />
-          {errors.title && (
-            <span id="title-error" className="error-message" role="alert">
-              {errors.title}
-            </span>
+          {errors.name && (
+            <ErrorMessage id="name-error">{errors.name}</ErrorMessage>
           )}
         </div>
       </Row>
@@ -204,7 +199,7 @@ export default function AddTechnologyForm({
       </Row>
       <Row>
         <label htmlFor="technology-status">Статус</label>
-        <div className="input-container required">
+        <div className="input-container">
           <select
             value={formData.category}
             onChange={(e) => {
@@ -232,9 +227,9 @@ export default function AddTechnologyForm({
       </Row>
       <Row>
         <label htmlFor="technology-description">Описание</label>
-        <div className="input-container">
+        <div className="input-container required">
           <textarea
-            id="description"
+            id="technology-description"
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -246,9 +241,9 @@ export default function AddTechnologyForm({
             }
           />
           {errors.description && (
-            <span id="description-error" className="error-message" role="alert">
+            <ErrorMessage id="description-error">
               {errors.description}
-            </span>
+            </ErrorMessage>
           )}
         </div>
       </Row>
@@ -269,9 +264,7 @@ export default function AddTechnologyForm({
             aria-describedby={errors.notes ? "description-error" : undefined}
           />
           {errors.notes && (
-            <span id="notes-error" className="error-message" role="alert">
-              {errors.notes}
-            </span>
+            <ErrorMessage id="notes-error">{errors.notes}</ErrorMessage>
           )}
         </div>
       </Row>
@@ -288,9 +281,7 @@ export default function AddTechnologyForm({
             aria-describedby={errors.deadline ? "deadline-error" : undefined}
           />
           {errors.deadline && (
-            <span id="deadline-error" className="error-message" role="alert">
-              {errors.deadline}
-            </span>
+            <ErrorMessage id="deadline-error">{errors.deadline}</ErrorMessage>
           )}
         </div>
       </Row>
@@ -325,14 +316,10 @@ error`
             )}
             {/* @ts-ignore */}
             {errors[`resource_${index}`] && (
-              <span
-                id={`resource-${index}-error`}
-                className="error-message"
-                role="alert"
-              >
+              <ErrorMessage id={`resource-${index}-error`}>
                 {/* @ts-ignore */}
                 {errors[`resource_${index}`]}
-              </span>
+              </ErrorMessage>
             )}
           </div>
         ))}
@@ -357,6 +344,6 @@ error`
           Создать
         </button>
       </div>
-    </form>
+    </Form>
   );
 }

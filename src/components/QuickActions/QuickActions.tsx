@@ -22,7 +22,7 @@ export default function QuickActions({
       <h2>Быстрые действия</h2>
       <div className="quick-actions">
         <Button
-          title="Отметить все как выполненные"
+          name="Отметить все как выполненные"
           onClick={setAllToCompleted}
           icon={
             <Icon
@@ -36,7 +36,7 @@ export default function QuickActions({
           icon={
             <Icon src="/icons/icons8-reset-64.png" alt="reset all statuses" />
           }
-          title="Сбросить все статусы"
+          name="Сбросить все статусы"
         />
         <Button
           onClick={setRandomTechToInProgress}
@@ -46,7 +46,7 @@ export default function QuickActions({
               alt="set random technology's status as 'in-progress'"
             />
           }
-          title="Случайный выбор следующей технологии"
+          name="Случайный выбор следующей технологии"
         />
         <Button
           onClick={exportTechnologies}
@@ -56,13 +56,13 @@ export default function QuickActions({
               alt="download as json"
             />
           }
-          title="Экспортировать в JSON"
+          name="Экспортировать в JSON"
         />
         <Button
           onClick={(e) => {
             importTechnologies(e);
           }}
-          title="Импортировать JSON"
+          name="Импортировать JSON"
         />
       </div>
     </div>

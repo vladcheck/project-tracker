@@ -9,7 +9,7 @@ export type Difficulty =
 
 export interface Tech {
   id: string;
-  title: string;
+  name: string;
   description: string;
   status: Status;
   notes?: string;

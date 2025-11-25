@@ -27,14 +27,14 @@ export default function TechCard({
           role="button"
           aria-label="Удалить технологию"
           className="delete-tech-button action"
-          title="Удалить технологию"
+          name="Удалить технологию"
           icon={
             <Icon src="/icons/icons8-cross-50.webp" alt="delete" size={20} />
           }
         />
       </div>
       <div className="tech-info">
-        <h6 className="title">{data.title}</h6>
+        <h6 className="name">{data.name}</h6>
         <p className="description">{data.description}</p>
         <div className="meta-info">
           <div className="status">

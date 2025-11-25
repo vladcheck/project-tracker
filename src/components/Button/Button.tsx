@@ -9,7 +9,7 @@ export default function Button(
 ) {
   return (
     <button onClick={props.onClick} {...props}>
-      {props.icon ?? props.title ?? ""}
+      {props.icon ?? props.name ?? ""}
     </button>
   );
 }

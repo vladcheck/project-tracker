@@ -15,10 +15,10 @@ function getTechnologiesByFilters(
     results = getTechnologiesByValue(technologies, "status", filters.status);
   }
   if (filters.description && filters.description.length) {
-    results = results.filter((t) => t.title.startsWith(filters.description!));
+    results = results.filter((t) => t.name.startsWith(filters.description!));
   }
-  if (filters.title && filters.title.length) {
-    results = results.filter((t) => t.title.startsWith(filters.title!));
+  if (filters.name && filters.name.length) {
+    results = results.filter((t) => t.name.startsWith(filters.name!));
   }
   return results;
 }

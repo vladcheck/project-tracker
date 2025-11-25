@@ -10,23 +10,23 @@ export default function TechFilterPanel({ filters, setFilters }: FiltersProps) {
       <div className="status-filters">
         <Button
           onClick={() => setFilters({ ...filters, status: undefined })}
-          title="Все"
+          name="Все"
         />
         <Button
           onClick={() => setFilters({ ...filters, status: "not-started" })}
-          title="Не начатые"
+          name="Не начатые"
         />
         <Button
           onClick={() => setFilters({ ...filters, status: "in-progress" })}
-          title=" В процессе изучения"
+          name=" В процессе изучения"
         />
         <Button
           onClick={() => setFilters({ ...filters, status: "completed" })}
-          title="Изученные"
+          name="Изученные"
         />
         <Button
           onClick={() => setFilters({ ...filters, status: "cancelled" })}
-          title="Отмененные"
+          name="Отмененные"
         />
       </div>
       <div className="filter-inputs">
@@ -35,8 +35,8 @@ export default function TechFilterPanel({ filters, setFilters }: FiltersProps) {
           <input
             type="text"
             id="tech-name"
-            value={filters.title ?? ""}
-            onChange={(e) => setFilters({ ...filters, title: e.target.value })}
+            value={filters.name ?? ""}
+            onChange={(e) => setFilters({ ...filters, name: e.target.value })}
             placeholder="(нет)"
           />
         </Row>

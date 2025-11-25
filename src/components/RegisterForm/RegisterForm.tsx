@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./RegisterForm.css";
+import Form from "../Form/Form";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 interface FormData {
   name: string;
@@ -68,79 +70,51 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="accessible-form-container">
-      {/* область для скринридера - объявляет статус отправки */}
-      <div
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
-        {isSubmitting && "Отправка формы..."}
-        {submitSuccess && "Форма успешно отправлена!"}
+    <Form id="register-form" onSubmit={handleSubmit} noValidate>
+      {/* поле имени */}
+      <div className="form-field">
+        <label htmlFor="contact-name">Ваше имя</label>
+        <div className="input-container">
+          <input
+            id="contact-name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors?.name}
+            aria-describedby={errors?.name ? "name-error" : undefined}
+            className={errors?.name ? "error" : ""}
+          />
+          {errors?.name && (
+            <ErrorMessage id="name-error">{errors.name}</ErrorMessage>
+          )}
+        </div>
       </div>
 
-      {/* визуальное сообщение об успехе */}
-      {submitSuccess && (
-        <div className="success-message" role="alert">
-          Спасибо! Ваше сообщение успешно отправлено.
+      {/* поле email */}
+      <div className="form-field">
+        <label htmlFor="contact-email">Email</label>
+        <div className="input-container">
+          <input
+            id="contact-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors?.email}
+            aria-describedby={errors?.email ? "email-error" : undefined}
+            className={errors?.email ? "error" : ""}
+          />
+          {errors?.email && (
+            <ErrorMessage id="email-error">{errors.email}</ErrorMessage>
+          )}
         </div>
-      )}
+      </div>
 
-      <form onSubmit={handleSubmit} noValidate>
-        {/* поле имени */}
-        <div className="form-field">
-          <label htmlFor="contact-name">
-            Ваше имя <span aria-label="обязательное поле">*</span>
-          </label>
-          <div className="input-container">
-            <input
-              id="contact-name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              aria-required="true"
-              aria-invalid={!!errors?.name}
-              aria-describedby={errors?.name ? "name-error" : undefined}
-              className={errors?.name ? "error" : ""}
-            />
-            {errors?.name && (
-              <span id="name-error" className="error-text" role="alert">
-                {errors.name}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* поле email */}
-        <div className="form-field">
-          <label htmlFor="contact-email">
-            Email <span aria-label="обязательное поле">*</span>
-          </label>
-          <div className="input-container">
-            <input
-              id="contact-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-required="true"
-              aria-invalid={!!errors?.email}
-              aria-describedby={errors?.email ? "email-error" : undefined}
-              className={errors?.email ? "error" : ""}
-            />
-            {errors?.email && (
-              <span id="email-error" className="error-text" role="alert">
-                {errors.email}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* кнопка отправки */}
-        <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
-          {isSubmitting ? "Отправка..." : "Отправить"}
-        </button>
-      </form>
-    </div>
+      {/* кнопка отправки */}
+      <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+        {isSubmitting ? "Отправка..." : "Отправить"}
+      </button>
+    </Form>
   );
 }

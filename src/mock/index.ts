@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 export const techMock: Tech[] = [
   {
     id: uuidv4(),
-    title: "React Components",
+    name: "React Components",
     description: "Изучение базовых компонентов",
     status: "completed",
     difficulty: "easy",
@@ -13,7 +13,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "JSX Syntax",
+    name: "JSX Syntax",
     description: "Освоение синтаксиса JSX",
     status: "completed",
     difficulty: "trivial",
@@ -22,7 +22,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "State Management",
+    name: "State Management",
     description: "Работа с состоянием компонентов",
     status: "completed",
     difficulty: "medium",
@@ -31,7 +31,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "Props",
+    name: "Props",
     description: "Передача пропсов компонентам",
     status: "completed",
     difficulty: "easy",
@@ -40,7 +40,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "useRef()",
+    name: "useRef()",
     description: "Для чего нужен useRef и как им пользоваться",
     status: "not-started",
     difficulty: "easy",
@@ -49,7 +49,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "useMemo()",
+    name: "useMemo()",
     description: "Для чего нужен useMemo и как им пользоваться",
     status: "not-started",
     difficulty: "medium",
@@ -58,7 +58,7 @@ export const techMock: Tech[] = [
   },
   {
     id: uuidv4(),
-    title: "useContext()",
+    name: "useContext()",
     description:
       "Для чего нужен useContext и как им пользоваться, чем он отличается от useState()",
     status: "completed",
