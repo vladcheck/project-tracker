@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import Row from "../components/Row/Row";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useTechnologies from "../hooks/useTechnologies";
-import translate from "../utils/i18n";
 import "./SettingsPage.css";
+import Row from "../../components/Row/Row";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useTechnologies from "../../hooks/useTechnologies";
+import translate from "../../utils/i18n";
 
 export default function SettingsPage() {
   const { setTechnologies } = useTechnologies();

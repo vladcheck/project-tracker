@@ -1,6 +1,6 @@
-import Statistics from "../components/Statistics/Statistics";
-import useTechnologies from "../hooks/useTechnologies";
-import { getTechnologiesByStatus } from "../utils/tech";
+import Statistics from "../../components/Statistics/Statistics";
+import useTechnologies from "../../hooks/useTechnologies";
+import { getTechnologiesByStatus } from "../../utils/tech";
 
 export default function StatisticsPage() {
   const { technologies, progress } = useTechnologies();

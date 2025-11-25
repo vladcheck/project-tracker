@@ -1,4 +1,4 @@
-import useLocalStorage from "../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function HomePage() {
   const [username] = useLocalStorage("username", "Гость");

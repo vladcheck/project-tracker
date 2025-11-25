@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import QuickActions from "../components/QuickActions/QuickActions";
-import TechFilterPanel from "../components/TechFilterPanel/TechFilterPanel";
-import TechList from "../components/TechList/TechList";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useTechnologies from "../hooks/useTechnologies";
-import { Tech, TechFilters } from "../types";
+import QuickActions from "../../components/QuickActions/QuickActions";
+import TechFilterPanel from "../../components/TechFilterPanel/TechFilterPanel";
+import TechList from "../../components/TechList/TechList";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useTechnologies from "../../hooks/useTechnologies";
+import { Tech, TechFilters } from "../../types";
 import {
   exportTechnologies,
   getTechnologiesByStatus,
   importTechnologiesFromJSON,
-} from "../utils/tech";
+} from "../../utils/tech";
 import "./TechnologyListPage.css";
 
 const TECHNOLOGIES_KEY = "technologies";

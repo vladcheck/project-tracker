@@ -1,6 +1,6 @@
 import "./AddTechnologyPage.css";
-import AddTechnologyForm from "../components/AddTechnologyForm/AddTechnologyForm";
-import useTechnologies from "../hooks/useTechnologies";
+import AddTechnologyForm from "../../components/AddTechnologyForm/AddTechnologyForm";
+import useTechnologies from "../../hooks/useTechnologies";
 
 export default function AddTechnologyPage() {
   const { addTechnology } = useTechnologies();

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RegisterForm from "../components/RegisterForm/RegisterForm";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
 export default function AuthPage() {
   const [loggedIn] = useState<boolean>(false);

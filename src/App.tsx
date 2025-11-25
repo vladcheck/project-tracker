@@ -12,7 +12,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import { techMock } from "./mock";
 import { TechnologyContext } from "./context/technologyContext";
 import NotFound from "./pages/NotFound/NotFound";
-import AuthPage from "./pages/AuthPage";
+import AuthPage from "./pages/AuthPage/AuthPage";
 
 export default function App() {
   const [technologies, setTechnologies] = useLocalStorage(
