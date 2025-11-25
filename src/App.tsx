@@ -12,6 +12,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import { techMock } from "./mock";
 import { TechnologyContext } from "./context/technologyContext";
 import NotFound from "./pages/NotFound/NotFound";
+import AuthPage from "./pages/AuthPage";
 
 export default function App() {
   const [technologies, setTechnologies] = useLocalStorage(
@@ -26,6 +27,7 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/auth" element={<AuthPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/technologies" element={<TechnologyListPage />} />
               <Route path="/add-technology" element={<AddTechnologyPage />} />
