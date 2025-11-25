@@ -1,14 +1,10 @@
 import useTechnologies from "../../hooks/useTechnologies";
-import { Status, Tech } from "../../types";
+import { Tech } from "../../types";
 import translate from "../../utils/i18n";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import TechNotes from "../TechNotes/TechNotes";
 import "./style.css";
-
-function translateStatus(status: Status): string {
-  return translate(status) ?? status;
-}
 
 export default function TechCard({
   data,
@@ -40,10 +36,32 @@ export default function TechCard({
       <div className="tech-info">
         <h6 className="title">{data.title}</h6>
         <p className="description">{data.description}</p>
-        <div className="status">Статус: {translateStatus(data.status)}</div>
-        {data.deadline && (
-          <div className="deadline">Дедлайн: {data.deadline}</div>
-        )}
+        <div className="meta-info">
+          <div className="status">
+            <label>Статус:</label> {translate(data.status)}
+          </div>
+          {data.deadline && (
+            <div className="deadline">
+              <label>Дедлайн:</label> {data.deadline.toString()}
+            </div>
+          )}
+          <div className="difficulty">
+            <label>Сложность:</label> {translate(data.difficulty)}
+          </div>
+          <div className="category">Категория: {translate(data.category)}</div>
+          <div className="resources">
+            <label>Ресурсы:</label>
+            {data.resources.length > 0 ? (
+              data.resources.map((resource) => (
+                <a href={resource} target="__blank">
+                  {resource}
+                </a>
+              ))
+            ) : (
+              <i>нет</i>
+            )}
+          </div>
+        </div>
         <TechNotes
           techId={data.id}
           onNotesChange={onNotesChange}

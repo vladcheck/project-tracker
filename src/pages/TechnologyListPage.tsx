@@ -6,6 +6,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import useTechnologies from "../hooks/useTechnologies";
 import { Tech, TechFilters } from "../types";
 import { exportTechnologies, getTechnologiesByStatus } from "../utils/tech";
+import "./TechnologyListPage.css";
 
 const TECHNOLOGIES_KEY = "technologies";
 
@@ -37,6 +38,7 @@ export default function TechnologyListPage() {
 
   return (
     <main>
+      <div className="top-panel">
       <QuickActions
         setAllToCompleted={() => {
           const completedTechnologies: Tech[] = technologies.map((t) => {
@@ -56,6 +58,7 @@ export default function TechnologyListPage() {
         }}
       />
       <TechFilterPanel filters={filters} setFilters={setFilters} />
+      </div>
       <TechList filters={filters} />
     </main>
   );

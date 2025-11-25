@@ -11,15 +11,16 @@ select {
     font-size: inherit;
 }
 :root {
+  max-height: 100vh;
 font-family:
         "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
         Arial, sans-serif;
     font-size: 24px;
+    overflow-y:hidden;
 }
 
 #root {
   width: 100vw;
-  height: 100vh;
 }
 
 h1 {

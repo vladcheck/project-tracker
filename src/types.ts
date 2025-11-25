@@ -1,13 +1,11 @@
 export type Status = "completed" | "in-progress" | "cancelled" | "not-started";
-
-export enum Difficulty {
-  None,
-  Trivial,
-  Easy,
-  Medium,
-  Hard,
-  Insane,
-}
+export type Difficulty =
+  | "none"
+  | "trivial"
+  | "easy"
+  | "medium"
+  | "hard"
+  | "insane";
 
 export interface Tech {
   id: string;
@@ -18,7 +16,7 @@ export interface Tech {
   resources: string[];
   dependsOn?: Tech[];
   deadline?: Date;
-  category?: string;
+  category: string;
   difficulty: Difficulty;
 }
 

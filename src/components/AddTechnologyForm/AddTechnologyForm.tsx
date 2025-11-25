@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Difficulty, Status, Tech } from "../../types";
+import { Status, Tech } from "../../types";
 import translate from "../../utils/i18n";
 import Row from "../Row/Row";
 import "./AddTechnologyForm.css";
@@ -75,7 +75,7 @@ export default function AddTechnologyForm({
     description: initialData?.description || "", // описание
     status: initialData?.status || "not-started", // статус изучения
     category: initialData?.category || "", // категория
-    difficulty: initialData?.difficulty || Difficulty.None, // сложность
+    difficulty: initialData?.difficulty || "none", // сложность
     deadline: initialData?.deadline || new Date(), // дедлайн (необязательно)
     resources: initialData?.resources || [""], // массив URL ресурсов
     notes: initialData?.notes || "",

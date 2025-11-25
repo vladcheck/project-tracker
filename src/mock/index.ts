@@ -1,4 +1,4 @@
-import { Difficulty, Tech } from "../types";
+import { Tech } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
 export const techMock: Tech[] = [
@@ -7,7 +7,8 @@ export const techMock: Tech[] = [
     title: "React Components",
     description: "Изучение базовых компонентов",
     status: "completed",
-    difficulty: Difficulty.Easy,
+    difficulty: "easy",
+    category: "frontend",
     resources: [],
   },
   {
@@ -15,7 +16,8 @@ export const techMock: Tech[] = [
     title: "JSX Syntax",
     description: "Освоение синтаксиса JSX",
     status: "completed",
-    difficulty: Difficulty.Trivial,
+    difficulty: "trivial",
+    category: "frontend",
     resources: [],
   },
   {
@@ -23,7 +25,8 @@ export const techMock: Tech[] = [
     title: "State Management",
     description: "Работа с состоянием компонентов",
     status: "completed",
-    difficulty: Difficulty.Medium,
+    difficulty: "medium",
+    category: "frontend",
     resources: [],
   },
   {
@@ -31,7 +34,8 @@ export const techMock: Tech[] = [
     title: "Props",
     description: "Передача пропсов компонентам",
     status: "completed",
-    difficulty: Difficulty.Easy,
+    difficulty: "easy",
+    category: "frontend",
     resources: [],
   },
   {
@@ -39,7 +43,8 @@ export const techMock: Tech[] = [
     title: "useRef()",
     description: "Для чего нужен useRef и как им пользоваться",
     status: "not-started",
-    difficulty: Difficulty.Easy,
+    difficulty: "easy",
+    category: "frontend",
     resources: [],
   },
   {
@@ -47,7 +52,8 @@ export const techMock: Tech[] = [
     title: "useMemo()",
     description: "Для чего нужен useMemo и как им пользоваться",
     status: "not-started",
-    difficulty: Difficulty.Medium,
+    difficulty: "medium",
+    category: "frontend",
     resources: [],
   },
   {
@@ -56,7 +62,8 @@ export const techMock: Tech[] = [
     description:
       "Для чего нужен useContext и как им пользоваться, чем он отличается от useState()",
     status: "completed",
-    difficulty: Difficulty.Hard,
+    difficulty: "hard",
+    category: "frontend",
     resources: [],
   },
 ];

@@ -1,15 +1,30 @@
 .tech-card {
+    display: flex;
+        flex-direction: column;
+        gap: 10px;
     --accent-clr: #ebac378e;
     position: relative;
     will-change: background, transform;
-    display: flex;
-    flex-direction: column;
     padding: 20px;
     border-radius: 5px;
 
     transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
+.tech-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.meta-info {
+    background-color: rgba(255, 255, 255, 0.432);
+    padding: 5px 15px;
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
 .tech-card-actions {
     padding: 10px;
 
