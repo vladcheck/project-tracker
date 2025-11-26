@@ -1,37 +1,49 @@
 import { FiltersProps } from "./types";
-import Button from "../Button/Button";
 import Row from "../Row/Row";
 import "./style.css";
+import { Box, Button, InputLabel, Typography } from "@mui/material";
 
 export default function TechFilterPanel({ filters, setFilters }: FiltersProps) {
   return (
-    <div id="tech-filter-panel">
-      <h2>Фильтры</h2>
-      <div className="status-filters">
+    <Box id="tech-filter-panel">
+      <Typography variant="h2" component="h2" gutterBottom>
+        Фильтры
+      </Typography>
+      <Box className="status-filters">
         <Button
+          variant="outlined"
           onClick={() => setFilters({ ...filters, status: undefined })}
-          name="Все"
-        />
+        >
+          Все
+        </Button>
         <Button
+          variant="outlined"
           onClick={() => setFilters({ ...filters, status: "not-started" })}
-          name="Не начатые"
-        />
+        >
+          Не начатые
+        </Button>
         <Button
+          variant="outlined"
           onClick={() => setFilters({ ...filters, status: "in-progress" })}
-          name=" В процессе изучения"
-        />
+        >
+          В процессе изучения
+        </Button>
         <Button
+          variant="outlined"
           onClick={() => setFilters({ ...filters, status: "completed" })}
-          name="Изученные"
-        />
+        >
+          Изученные
+        </Button>
         <Button
+          variant="outlined"
           onClick={() => setFilters({ ...filters, status: "cancelled" })}
-          name="Отмененные"
-        />
-      </div>
-      <div className="filter-inputs">
+        >
+          Отмененные
+        </Button>
+      </Box>
+      <Box className="filter-inputs">
         <Row>
-          <label htmlFor="tech-name">Название</label>
+          <InputLabel htmlFor="tech-name">Название</InputLabel>
           <input
             type="text"
             id="tech-name"
@@ -41,7 +53,7 @@ export default function TechFilterPanel({ filters, setFilters }: FiltersProps) {
           />
         </Row>
         <Row>
-          <label htmlFor="tech-description">Описание</label>
+          <InputLabel htmlFor="tech-description">Описание</InputLabel>
           <input
             type="text"
             id="tech-description"
@@ -52,7 +64,7 @@ export default function TechFilterPanel({ filters, setFilters }: FiltersProps) {
             placeholder="(нет)"
           />
         </Row>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

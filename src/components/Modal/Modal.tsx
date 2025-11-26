@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
 import "./Modal.css";
+import { Box, IconButton, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 
 export default function Modal({
   isOpen,
@@ -22,17 +24,19 @@ export default function Modal({
   };
 
   return (
-    <div className="modal-background" onClick={handleBackgroundClick}>
-      <div className="modal-window">
-        <div className="modal-header">
-          <h2>{name}</h2>
-          <button className="close-button" onClick={onClose}>
-            ×
-          </button>
-        </div>
+    <Box className="modal-background" onClick={handleBackgroundClick}>
+      <Box className="modal-window">
+        <Box className="modal-header">
+          <Typography variant="h1" component="h2" gutterBottom>
+            {name}
+          </Typography>
+          <IconButton className="close-button" onClick={onClose}>
+            <Delete />
+          </IconButton>
+        </Box>
 
-        <div className="modal-content">{children}</div>
-      </div>
-    </div>
+        <Box className="modal-content">{children}</Box>
+      </Box>
+    </Box>
   );
 }

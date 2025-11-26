@@ -1,26 +1,29 @@
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
+import { List, ListItem, Link as MuiLink } from "@mui/material";
+
+function Entry({ to, label }: { to: string; label: string }) {
+  return (
+    <ListItem>
+      <NavLink to={to} style={{ textDecoration: "none" }}>
+        <MuiLink underline="none" sx={{ fontSize: "1.3rem" }}>
+          {label}
+        </MuiLink>
+      </NavLink>
+    </ListItem>
+  );
+}
 
 export default function Navigation() {
   return (
-    <nav className="main-navigation">
-      <ul className="nav-menu">
-        <li>
-          <NavLink to="/">Главная</NavLink>
-        </li>
-        <li>
-          <NavLink to="/statistics">Статистика</NavLink>
-        </li>
-        <li>
-          <NavLink to="/technologies">Все технологии</NavLink>
-        </li>
-        <li>
-          <NavLink to="/add-technology">Добавить технологию</NavLink>
-        </li>
-        <li>
-          <NavLink to="/settings">Настройки</NavLink>
-        </li>
-      </ul>
-    </nav>
+    <List className="main-navigation" component="nav">
+      <List className="nav-menu">
+        <Entry to="/" label="Главная" />
+        <Entry to="/statistics" label="Статистика" />
+        <Entry to="/technologies" label="Все технологии" />
+        <Entry to="/add-technology" label="Добавить технологию" />
+        <Entry to="/settings" label="Настройки" />
+      </List>
+    </List>
   );
 }

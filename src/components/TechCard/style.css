@@ -1,14 +1,9 @@
 .tech-card {
-    display: flex;
-        flex-direction: column;
-        gap: 10px;
     --accent-clr: #ebac378e;
     position: relative;
-    will-change: background, transform;
     padding: 20px;
     border-radius: 5px;
-
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    min-height: 400px;
 }
 
 .tech-info {
@@ -20,35 +15,15 @@
 .meta-info {
     background-color: rgba(255, 255, 255, 0.432);
     padding: 5px 15px;
-    max-width: 80%;
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
-.tech-card-actions {
-    padding: 10px;
 
+.tech-card-actions {
     position: absolute;
     right: 20px;
-        top: 20px;
-
-    display: flex;
-    gap: 20px
-}
-
-.action {
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid rgb(139, 81, 42);
-}
-
-.tech-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(109, 80, 25, 0.2);
-}
-
-.tech-card .name {
-    font-size: 2rem;
+    top: 20px;
 }
 
 .tech-card.in-progress {

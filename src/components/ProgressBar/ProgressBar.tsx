@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import "./ProgressBar.css";
 
 interface ProgressBarProps {
@@ -22,18 +23,18 @@ export default function ProgressBar({
   const normalizedProgress = Math.min(100, Math.max(0, progress));
 
   return (
-    <div className="progress-bar-container">
+    <Box className="progress-bar-container">
       {/* Заголовок с лейблом и процентом */}
       {(label || showPercentage) && (
-        <div className="progress-bar-header">
+        <Box className="progress-bar-header">
           {label && <span className="progress-label">{label}</span>}
-        </div>
+        </Box>
       )}
 
       {/* Внешняя оболочка прогресс-бара */}
-      <div className="progress-bar-outer">
+      <Box className="progress-bar-outer">
         {/* Заполняемая часть прогресс-бара */}
-        <div
+        <Box
           className={`progress-bar-inner ${animated ? "animated" : ""}`}
           style={{
             width: `${normalizedProgress}%`,
@@ -41,7 +42,7 @@ export default function ProgressBar({
             transition: animated ? "width 0.5s ease-in-out" : "none",
           }}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { ComponentProps } from "react";
 
 interface FormProps extends ComponentProps<"form"> {
@@ -7,9 +8,9 @@ interface FormProps extends ComponentProps<"form"> {
 
 export default function Form(props: FormProps) {
   return (
-    <div className="accessible-form-container">
+    <Box className="accessible-form-container">
       {/* область для скринридера - объявляет статус отправки */}
-      <div
+      <Box
         role="status"
         aria-live="polite"
         aria-atomic="true"
@@ -17,19 +18,26 @@ export default function Form(props: FormProps) {
       >
         {props.isSubmitting && "Отправка формы..."}
         {props.submitSuccess && "Форма успешно отправлена!"}
-      </div>
+      </Box>
 
       {/* визуальное сообщение об успехе */}
       {props.submitSuccess && (
-        <div className="success-message" role="alert">
+        <Box className="success-message" role="alert">
           Спасибо! Ваше сообщение успешно отправлено.
-        </div>
+        </Box>
       )}
       {/* @ts-ignore */}
       <form {...props} className="form">
-        <h2>{props.title}</h2>
+        <Typography
+          variant="h2"
+          component="h2"
+          color="textPrimary"
+          gutterBottom
+        >
+          {props.title}
+        </Typography>
         {props.children}
       </form>
-    </div>
+    </Box>
   );
 }

@@ -1,3 +1,5 @@
+import { Box, TextareaAutosize, Typography } from "@mui/material";
+
 export default function TechNotes({
   notes = "",
   onNotesChange,
@@ -8,15 +10,16 @@ export default function TechNotes({
   techId: string;
 }) {
   return (
-    <div className="notes-section">
-      <h4>Заметки</h4>
-      <textarea
+    <Box className="notes-section">
+      <Typography variant="h4" component="h4" gutterBottom>
+        Заметки
+      </Typography>
+      <TextareaAutosize
         value={notes}
         onChange={(e) => onNotesChange(techId, e.target.value)}
         placeholder="Ваши заметки"
         cols={72}
-        rows={4}
       />
-    </div>
+    </Box>
   );
 }

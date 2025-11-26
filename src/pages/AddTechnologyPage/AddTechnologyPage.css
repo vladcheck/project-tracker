@@ -1,6 +1,6 @@
 #add-technology-form {
     max-width: 1200px;
-    padding: 40px;
+    padding: 20px;
     box-shadow: 0 4px 10px rgba(185, 144, 67, 0.459);
 
     display: flex;
@@ -11,16 +11,6 @@
 
 .row {
     align-items: center;
-}
-
-textarea {
-    resize: none;
-}
-
-button[type="submit"] {
-    width: max-content;
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .input-container.required {

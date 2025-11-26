@@ -5,8 +5,17 @@ import Row from "../Row/Row";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import TextInputBlock from "../TextInputBlock/TextInputBlock";
-import Button from "../Button/Button";
 import "./style.css";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 interface AddTechnologyFormProps {
   onSave: (arg0: any) => void;
@@ -191,26 +200,26 @@ export default function AddTechnologyForm({
         handleChange={handleChange}
       />
       <Row>
-        <label htmlFor="category">Категория</label>
-        <div className="input-container">
-          <select
+        <InputLabel htmlFor="category">Категория</InputLabel>
+        <Box className="input-container">
+          <Select
             id="category"
             name="category"
             value={formData.category}
             onChange={handleChange}
           >
-            <option value="frontend">Frontend</option>
-            <option value="backend">Backend</option>
-            <option value="database">База данных</option>
-            <option value="devops">DevOps</option>
-            <option value="other">Другое</option>
-          </select>
-        </div>
+            <MenuItem value="frontend">Frontend</MenuItem>
+            <MenuItem value="backend">Backend</MenuItem>
+            <MenuItem value="database">База данных</MenuItem>
+            <MenuItem value="devops">DevOps</MenuItem>
+            <MenuItem value="other">Другое</MenuItem>
+          </Select>
+        </Box>
       </Row>
       <Row>
-        <label htmlFor="technology-status">Статус</label>
-        <div className="input-container">
-          <select
+        <InputLabel htmlFor="technology-status">Статус</InputLabel>
+        <Box className="input-container">
+          <Select
             value={formData.category}
             onChange={(e) => {
               updateFormData({ category: e.target.value });
@@ -228,19 +237,18 @@ export default function AddTechnologyForm({
                 "not-started",
               ] satisfies Status[]
             ).map((status) => (
-              <option value={status} key={status}>
+              <MenuItem value={status} key={status}>
                 {translate(status)}
-              </option>
+              </MenuItem>
             ))}
-          </select>
-        </div>
+          </Select>
+        </Box>
       </Row>
       <TextInputBlock
         label="Описание"
         id="technology-description"
         name="description"
         type="textarea"
-        rows={4}
         value={formData.description?.toString()}
         error={errors.description}
         errorId="description-error"
@@ -252,7 +260,6 @@ export default function AddTechnologyForm({
         id="technology-notes"
         name="notes"
         type="textarea"
-        rows={4}
         cols={40}
         value={formData.notes?.toString()}
         error={errors.notes}
@@ -280,58 +287,68 @@ export default function AddTechnologyForm({
         handleChange={handleChange}
       />
       <Row>
-        <label>Ресурсы для изучения</label>
-        <div className="resources">
+        <InputLabel>Ресурсы для изучения</InputLabel>
+        <Box className="resources">
           {formData.resources.map((resource, index) => (
-            <div key={index} className="resource-field">
-              <TextInputBlock
-                type="url"
-                name={`resource_${index}`}
-                value={resource}
-                label=""
-                placeholder="https://example.com"
-                id={`resource_${index}`}
-                errorId={`resource_${index}`}
-                handleChange={(e) =>
-                  handleResourceChange(index, e.target.value)
-                }
-              />
-              {formData.resources.length > 1 && (
-                <Button
-                  name="Удалить"
-                  type="button"
-                  onClick={() => removeResourceField(index)}
-                  className="btn-remove"
-                  aria-label={`Удалить ресурс ${index + 1}`}
+            <Card key={index} className="resource-field">
+              <CardContent>
+                <TextInputBlock
+                  type="url"
+                  name={`resource_${index}`}
+                  value={resource}
+                  label=""
+                  placeholder="https://example.com"
+                  id={`resource_${index}`}
+                  errorId={`resource_${index}`}
+                  handleChange={(e) =>
+                    handleResourceChange(index, e.target.value)
+                  }
                 />
-              )}
-              {/* @ts-ignore */}
-              {errors[`resource_${index}`] && (
-                <ErrorMessage id={`resource-${index}-error`}>
-                  {/* @ts-ignore */}
-                  {errors[`resource_${index}`]}
-                </ErrorMessage>
-              )}
-            </div>
+              </CardContent>
+              <CardActions>
+                {formData.resources.length > 1 && (
+                  <Button
+                    variant="outlined"
+                    onClick={() => removeResourceField(index)}
+                    className="btn-remove"
+                    aria-label={`Удалить ресурс ${index + 1}`}
+                  >
+                    Удалить
+                  </Button>
+                )}
+                {/* @ts-ignore */}
+                {errors[`resource_${index}`] && (
+                  <ErrorMessage id={`resource-${index}-error`}>
+                    {/* @ts-ignore */}
+                    {errors[`resource_${index}`]}
+                  </ErrorMessage>
+                )}
+              </CardActions>
+            </Card>
           ))}
-        </div>
+        </Box>
         <Button
-          name="Добавить ресурс"
-          type="button"
           onClick={addResourceField}
+          variant="outlined"
           className="btn-add-resource"
-        />
+        >
+          Добавить ресурс
+        </Button>
       </Row>
-      <div className="action-buttons">
-        <Button name="Отменить" onClick={onCancel} className="btn-secondary" />
+      <Box className="action-buttons">
+        <Button onClick={onCancel} variant="outlined" className="btn-secondary">
+          Отменить
+        </Button>
         <Button
-          name="Подтвердить"
+          variant="outlined"
           type="submit"
           onClick={handleSubmit}
           className="btn-primary"
           disabled={!isFormValid}
-        />
-      </div>
+        >
+          Подтвердить
+        </Button>
+      </Box>
     </Form>
   );
 }

@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import useTechnologies from "../../hooks/useTechnologies";
 import { Tech, TechFilters } from "../../types";
 import { getNextStatus } from "../../utils/status";
@@ -36,11 +37,13 @@ export default function TechList({ filters }: { filters: TechFilters }) {
   };
 
   return (
-    <div className="tech-list">
-      <span className="found-count">
-        Результаты: {filteredTechnologies.length}
-      </span>
-      <div className="technologies">
+    <Box className="tech-list">
+      {filteredTechnologies.length > 0 && (
+        <Typography className="found-count" color="textSecondary">
+          Результаты: {filteredTechnologies.length}
+        </Typography>
+      )}
+      <Box className="technologies">
         {filteredTechnologies.length > 0 ? (
           filteredTechnologies.map((t) => (
             <TechCard
@@ -57,9 +60,11 @@ export default function TechList({ filters }: { filters: TechFilters }) {
             />
           ))
         ) : (
-          <span>По данным фильтрам ничего не нашлось :(</span>
+          <Typography className="not-found" component="span" variant="h2">
+            По данным фильтрам ничего не нашлось :(
+          </Typography>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

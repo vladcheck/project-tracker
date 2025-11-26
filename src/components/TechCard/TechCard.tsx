@@ -1,10 +1,20 @@
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  InputLabel,
+  Link,
+  Typography,
+} from "@mui/material";
 import useTechnologies from "../../hooks/useTechnologies";
 import { Tech } from "../../types";
 import translate from "../../utils/i18n";
-import Button from "../Button/Button";
-import Icon from "../Icon/Icon";
 import TechNotes from "../TechNotes/TechNotes";
 import "./style.css";
+import { DeleteOutline } from "@mui/icons-material";
 
 export default function TechCard({
   data,
@@ -18,9 +28,13 @@ export default function TechCard({
   const { removeTechnology } = useTechnologies();
 
   return (
-    <div aria-label="Технология" className={`tech-card ${data.status}`}>
-      <div className="tech-card-actions">
-        <Button
+    <Card
+      aria-label="Технология"
+      className={`tech-card ${data.status}`}
+      sx={{ display: "flex", flexDirection: "column" }}
+    >
+      <CardActions className="tech-card-actions">
+        <IconButton
           onClick={() => {
             removeTechnology(data.id);
           }}
@@ -28,54 +42,60 @@ export default function TechCard({
           aria-label="Удалить технологию"
           className="delete-tech-button action"
           name="Удалить технологию"
-          icon={
-            <Icon src="/icons/icons8-cross-50.webp" alt="delete" size={20} />
-          }
-        />
-      </div>
-      <div className="tech-info">
-        <h6 className="name">{data.name}</h6>
-        <p className="description">{data.description}</p>
-        <div className="meta-info">
-          <div className="status">
-            <label>Статус:</label> {translate(data.status)}
-          </div>
+        >
+          <DeleteOutline />
+        </IconButton>
+      </CardActions>
+      <CardContent className="tech-info">
+        <Typography className="name" variant="h3" component="h3" gutterBottom>
+          {data.name}
+        </Typography>
+        <Typography className="description" variant="body1" component="p">
+          {data.description}
+        </Typography>
+        <Box className="meta-info">
+          <Box className="status">
+            <InputLabel>Статус:</InputLabel> {translate(data.status)}
+          </Box>
           {data.deadline && (
-            <div className="deadline">
-              <label>Дедлайн:</label> {data.deadline.toString()}
-            </div>
+            <Box className="deadline">
+              <InputLabel>Дедлайн:</InputLabel> {data.deadline.toString()}
+            </Box>
           )}
-          <div className="difficulty">
-            <label>Сложность:</label> {translate(data.difficulty)}
-          </div>
-          <div className="category">Категория: {translate(data.category)}</div>
-          <div className="resources">
-            <label>Ресурсы:</label>
+          <Box className="difficulty">
+            <InputLabel>Сложность:</InputLabel> {translate(data.difficulty)}
+          </Box>
+          <Box className="category">
+            <InputLabel>Категория:</InputLabel> {translate(data.category)}
+          </Box>
+          <Box className="resources">
+            <InputLabel>Ресурсы:</InputLabel>
             {data.resources.length > 0 ? (
               data.resources.map((resource) => (
-                <a href={resource} target="__blank">
+                <Link href={resource} target="__blank">
                   {resource}
-                </a>
+                </Link>
               ))
             ) : (
-              <i>нет</i>
+              <span>нет</span>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
         <TechNotes
           techId={data.id}
           onNotesChange={onNotesChange}
           notes={data.notes}
         />
-        <button
+        <Button
+          variant="outlined"
           className="switch-status button"
           onClick={() => {
             setStatus(data.id);
           }}
         >
           Переключить статус
-        </button>
-      </div>
-    </div>
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

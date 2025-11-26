@@ -13,9 +13,6 @@
     justify-content: center;
     gap: 20px;
 }
-.row {
-    max-width: 1000px;
-}
 
 .current-settings {
     display: flex;

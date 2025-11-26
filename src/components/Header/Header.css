@@ -1,3 +1,11 @@
 header {
+    position: relative;
+        display: inline-block;
     padding: 20px;
+}
+.trademark {
+    position: absolute;
+    top: 1.75rem;
+    right: 1rem;
+    font-size: 9px;
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./RegisterForm.css";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { Box, Button, InputLabel } from "@mui/material";
+import TextInputBlock from "../TextInputBlock/TextInputBlock";
 
 interface FormData {
   name: string;
@@ -70,31 +72,36 @@ export default function RegisterForm() {
   };
 
   return (
-    <Form id="register-form" onSubmit={handleSubmit} noValidate>
+    <Form
+      id="register-form"
+      onSubmit={handleSubmit}
+      noValidate
+      isSubmitting={isSubmitting}
+      submitSuccess={submitSuccess}
+    >
       {/* поле имени */}
-      <div className="form-field">
-        <label htmlFor="contact-name">Ваше имя</label>
-        <div className="input-container">
-          <input
-            id="contact-name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            aria-required="true"
-            aria-invalid={!!errors?.name}
-            aria-describedby={errors?.name ? "name-error" : undefined}
-            className={errors?.name ? "error" : ""}
-          />
-          {errors?.name && (
-            <ErrorMessage id="name-error">{errors.name}</ErrorMessage>
-          )}
-        </div>
-      </div>
+      <Box className="form-field">
+        <TextInputBlock
+          name="name"
+          label="Ваше имя"
+          id="name"
+          type="text"
+          value={name}
+          handleChange={(e) => setName(e.target.value)}
+          errorId="name-error"
+          required={true}
+          aria-invalid={!!errors?.name}
+          aria-describedby={errors?.name ? "name-error" : undefined}
+        />
+        {errors?.name && (
+          <ErrorMessage id="name-error">{errors.name}</ErrorMessage>
+        )}
+      </Box>
 
       {/* поле email */}
-      <div className="form-field">
-        <label htmlFor="contact-email">Email</label>
-        <div className="input-container">
+      <Box className="form-field">
+        <InputLabel htmlFor="contact-email">Email</InputLabel>
+        <Box className="input-container">
           <input
             id="contact-email"
             type="email"
@@ -108,13 +115,18 @@ export default function RegisterForm() {
           {errors?.email && (
             <ErrorMessage id="email-error">{errors.email}</ErrorMessage>
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
 
       {/* кнопка отправки */}
-      <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+      <Button
+        type="submit"
+        variant="outlined"
+        disabled={isSubmitting}
+        aria-busy={isSubmitting}
+      >
         {isSubmitting ? "Отправка..." : "Отправить"}
-      </button>
+      </Button>
     </Form>
   );
 }

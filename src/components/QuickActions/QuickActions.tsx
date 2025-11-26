@@ -1,6 +1,12 @@
-import Button from "../Button/Button";
-import Icon from "../Icon/Icon";
+import { Box, Typography, Button } from "@mui/material";
 import "./style.css";
+import {
+  Casino,
+  ClearAll,
+  DoneAll,
+  FileDownload,
+  FileUpload,
+} from "@mui/icons-material";
 
 interface QuickActionsProps {
   setAllToCompleted: () => void;
@@ -18,59 +24,49 @@ export default function QuickActions({
   importTechnologies,
 }: QuickActionsProps) {
   return (
-    <div className="quick-actions-section">
-      <h2>Быстрые действия</h2>
-      <div className="quick-actions">
+    <Box className="quick-actions-section">
+      <Typography variant="h2" component="h2" gutterBottom>
+        Быстрые действия
+      </Typography>
+      <Box className="quick-actions">
         <Button
           name="Отметить все как выполненные"
+          variant="outlined"
           onClick={setAllToCompleted}
-          icon={
-            <Icon
-              src="/icons/icons8-done-48.png"
-              alt="set all technologies as completed"
-            />
-          }
-        />
+        >
+          <DoneAll />
+        </Button>
         <Button
           onClick={resetAll}
-          icon={
-            <Icon src="/icons/icons8-reset-64.png" alt="reset all statuses" />
-          }
+          variant="outlined"
           name="Сбросить все статусы"
-        />
+        >
+          <ClearAll />
+        </Button>
         <Button
+          variant="outlined"
           onClick={setRandomTechToInProgress}
-          icon={
-            <Icon
-              src="/icons/icons8-dice-80.png"
-              alt="set random technology's status as 'in-progress'"
-            />
-          }
           name="Случайный выбор следующей технологии"
-        />
+        >
+          <Casino />
+        </Button>
         <Button
           onClick={exportTechnologies}
-          icon={
-            <Icon
-              src="/icons/icons8-json-download-64.png"
-              alt="download as json"
-            />
-          }
+          variant="outlined"
           name="Экспортировать в JSON"
-        />
+        >
+          <FileDownload />
+        </Button>
         <Button
           onClick={(e) => {
             importTechnologies(e);
           }}
+          variant="outlined"
           name="Импортировать технологии"
-          icon={
-            <Icon
-              src="/icons/icons8-import-48.png"
-              alt="import technologies as json"
-            />
-          }
-        />
-      </div>
-    </div>
+        >
+          <FileUpload />
+        </Button>
+      </Box>
+    </Box>
   );
 }

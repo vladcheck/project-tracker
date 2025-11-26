@@ -11,6 +11,7 @@ import {
   importTechnologiesFromJSON,
 } from "../../utils/tech";
 import "./TechnologyListPage.css";
+import { Box, Paper } from "@mui/material";
 
 const TECHNOLOGIES_KEY = "technologies";
 
@@ -42,7 +43,7 @@ export default function TechnologyListPage() {
 
   return (
     <main>
-      <div className="top-panel">
+      <Paper className="top-panel">
         <QuickActions
           setAllToCompleted={() => {
             const completedTechnologies: Tech[] = technologies.map((t) => {
@@ -65,7 +66,7 @@ export default function TechnologyListPage() {
           }}
         />
         <TechFilterPanel filters={filters} setFilters={setFilters} />
-      </div>
+      </Paper>
       <TechList filters={filters} />
     </main>
   );

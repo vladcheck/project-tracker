@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { getNextStatus } from "../utils/status";
-import { TechnologyContext } from "../context/technologyContext";
+import { TechnologyContext } from "../context/TechnologyContext";
 import { Tech } from "../types";
 
 export default function useTechnologies() {

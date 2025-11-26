@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function HomePage() {
@@ -5,7 +6,9 @@ export default function HomePage() {
 
   return (
     <main className="flex-center">
-      <h1>Привет, {username}!</h1>
+      <Typography variant="h1" component="h2" color="textPrimary">
+        Привет, {username}!
+      </Typography>
     </main>
   );
 }

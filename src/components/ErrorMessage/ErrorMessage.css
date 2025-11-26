@@ -1,10 +1,8 @@
 .error-message {
     text-wrap-mode: nowrap;
-    right: 0;
+    left: 0;
+        top: -1.75em;
     padding: 5px;
-    top: -4ch;
     color: red;
-    background-color: rgb(70, 70, 70);
-    font-size: 0.6rem;
     position: absolute;
 }

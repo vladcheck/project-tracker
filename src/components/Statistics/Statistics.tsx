@@ -1,4 +1,6 @@
+import { Box, InputLabel, Paper, Typography } from "@mui/material";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import Row from "../Row/Row";
 
 export default function Statistics({
   stats,
@@ -14,41 +16,43 @@ export default function Statistics({
   };
 }) {
   return (
-    <div className="statistics">
-      <h2>Статистика</h2>
-      <div className="row">
-        <label htmlFor="total-tech-count">Всего технологий:</label>
+    <Paper className="statistics" sx={{ padding: "20px", minWidth: "600px" }}>
+      <Typography variant="h1" component="h2" gutterBottom>
+        Статистика
+      </Typography>
+      <Row>
+        <InputLabel htmlFor="total-tech-count">Всего технологий:</InputLabel>
         <span id="total-tech-count" className="total-tech-count">
           {stats.totalCount}
         </span>
-      </div>
-      <div className="progress-container row">
-        <label className="percentage-label" htmlFor="learning-progress">
+      </Row>
+      <Box className="progress-container row">
+        <InputLabel className="percentage-label" htmlFor="learning-progress">
           Изучено: {stats.progress}%
-        </label>
+        </InputLabel>
         <ProgressBar
           id="learning-progress"
           aria-busy="false"
           role="progressbar"
           progress={stats.progress}
         ></ProgressBar>
-      </div>
-      <div className="row">
-        <label htmlFor="not-started-tasks">Не начато:</label>
+      </Box>
+      <Row>
+        <InputLabel htmlFor="not-started-tasks">Не начато:</InputLabel>
         <span id="not-started-tasks">{stats.notStarted}</span>
-      </div>
-      <div className="row">
-        <label htmlFor="in-progress-tasks">Изучается:</label>
+      </Row>
+      <Row>
+        <InputLabel htmlFor="in-progress-tasks">Изучается:</InputLabel>
         <span id="in-progress-tasks">{stats.inProgress}</span>
-      </div>
-      <div className="row">
-        <label htmlFor="completed-tasks">Изучено:</label>
+      </Row>
+      <Row>
+        <InputLabel htmlFor="completed-tasks">Изучено:</InputLabel>
         <span id="completed-tasks">{stats.completed}</span>
-      </div>
-      <div className="row">
-        <label htmlFor="cancelled-tasks">Не будет изучено:</label>
+      </Row>
+      <Row>
+        <InputLabel htmlFor="cancelled-tasks">Не будет изучено:</InputLabel>
         <span id="cancelled-tasks">{stats.cancelled}</span>
-      </div>
-    </div>
+      </Row>
+    </Paper>
   );
 }

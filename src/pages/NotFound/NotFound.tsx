@@ -1,3 +1,5 @@
+import { Typography } from "@mui/material";
+
 export default function NotFound() {
   return (
     <main
@@ -7,7 +9,9 @@ export default function NotFound() {
         maxHeight: "100vh",
       }}
     >
-      <h1>Ой! Что-то сломалось :/</h1>
+      <Typography variant="h1" component="h2" color="textPrimary">
+        Ой! Что-то сломалось :/
+      </Typography>
       <a href="/">Вернуться на главную страницу</a>
     </main>
   );

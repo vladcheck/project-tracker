@@ -4,6 +4,15 @@ import Row from "../../components/Row/Row";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useTechnologies from "../../hooks/useTechnologies";
 import translate from "../../utils/i18n";
+import {
+  Box,
+  Button,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Typography,
+} from "@mui/material";
 
 export default function SettingsPage() {
   const { setTechnologies } = useTechnologies();
@@ -17,11 +26,13 @@ export default function SettingsPage() {
 
   return (
     <main className="flex-center">
-      <section className="user-settings">
-        <h2>Настройки пользователя</h2>
+      <Paper className="user-settings" component="section">
+        <Typography variant="h1" component="h2" color="textPrimary">
+          Настройки пользователя
+        </Typography>
         <form id="user-settings-form" ref={formRef}>
           <Row>
-            <label>Имя пользователя:</label>
+            <InputLabel>Имя пользователя:</InputLabel>
             <input
               type="text"
               minLength={3}
@@ -33,15 +44,17 @@ export default function SettingsPage() {
             />
           </Row>
           <Row>
-            <label>Тема оформления:</label>
-            <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-              <option value="light">Светлая</option>
-              <option value="dark">Темная</option>
-              <option value="auto">Авто</option>
-            </select>
+            <InputLabel>Тема оформления:</InputLabel>
+            <Select value={theme} onChange={(e) => setTheme(e.target.value)}>
+              <MenuItem value="light">Светлая</MenuItem>
+              <MenuItem value="dark">Темная</MenuItem>
+              <MenuItem value="auto">Авто</MenuItem>
+            </Select>
           </Row>
           <Row>
-            <label htmlFor="turn-on-notifications">Включить уведомления</label>
+            <InputLabel htmlFor="turn-on-notifications">
+              Включить уведомления
+            </InputLabel>
             <input
               id="turn-on-notifications"
               name="turnOnNotifications"
@@ -51,7 +64,8 @@ export default function SettingsPage() {
             />
           </Row>
           <Row>
-            <button
+            <Button
+              variant="outlined"
               onClick={() => {
                 const answer = prompt(
                   "Вы точно этого хотите?",
@@ -62,23 +76,28 @@ export default function SettingsPage() {
                 }
               }}
             >
-              Очистить <code>localStorage</code>
-            </button>
+              Очистить localStorage
+            </Button>
           </Row>
-          <button
-            type="submit"
-            onClick={(e) => {
-              if (formRef.current?.checkValidity()) {
-                e.preventDefault();
-                alert("[STUB] Успешно!");
-              }
-            }}
-          >
-            Сохранить изменения
-          </button>
+          <Row>
+            <Button
+              variant="outlined"
+              type="submit"
+              onClick={(e) => {
+                if (formRef.current?.checkValidity()) {
+                  e.preventDefault();
+                  alert("[STUB] Успешно!");
+                }
+              }}
+            >
+              Сохранить изменения
+            </Button>
+          </Row>
         </form>
-        <div className="current-settings">
-          <h3>Текущие настройки</h3>
+        <Box className="current-settings">
+          <Typography variant="h2" component="h2" color="textPrimary">
+            Текущие настройки
+          </Typography>
           <Row>
             <span>Имя</span>
             <span>{username}</span>
@@ -91,8 +110,8 @@ export default function SettingsPage() {
             <span>Уведомления</span>
             <span>{notifications ? "Включены" : "Выключены"}</span>
           </Row>
-        </div>
-      </section>
+        </Box>
+      </Paper>
     </main>
   );
 }

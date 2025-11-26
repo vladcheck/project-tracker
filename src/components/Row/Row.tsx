@@ -1,5 +1,6 @@
+import { Box } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 export default function Row({ children }: PropsWithChildren) {
-  return <div className="row">{children}</div>;
+  return <Box className="row">{children}</Box>;
 }
