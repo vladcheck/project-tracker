@@ -4,6 +4,9 @@ import translate from "../../utils/i18n";
 import Row from "../Row/Row";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import TextInputBlock from "../TextInputBlock/TextInputBlock";
+import Button from "../Button/Button";
+import "./style.css";
 
 interface AddTechnologyFormProps {
   onSave: (arg0: any) => void;
@@ -43,13 +46,33 @@ function validateForm(
     newErrors.description = "Описание должно содержать минимум 10 символов";
   }
 
-  if (formData.deadline) {
+  if (!formData.startDate) {
+    newErrors.startDate = "Дата начала изучения обязательна";
+  } else {
+    if (formData.deadline) {
+      const [startDate, endDate] = [
+        new Date(formData.startDate),
+        new Date(formData.deadline),
+      ];
+
+      if (startDate > endDate) {
+        newErrors.startDate = "Дата начала не может быть позже дедлайна";
+      }
+    }
+  }
+
+  if (!formData.deadline) {
+    newErrors.deadline = "Дедлайн обязателен";
+  } else {
     const deadlineDate = new Date(formData.deadline);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     if (deadlineDate < today) {
       newErrors.deadline = "Дедлайн не может быть в прошлом";
+    }
+    if (formData.startDate && deadlineDate < new Date(formData.startDate)) {
+      newErrors.deadline = "Дедлайн не может быть раньше даты начала";
     }
   }
 
@@ -77,6 +100,7 @@ export default function AddTechnologyForm({
     status: initialData?.status || "not-started", // статус изучения
     category: initialData?.category || "", // категория
     difficulty: initialData?.difficulty || "none", // сложность
+    startDate: initialData?.startDate || new Date(),
     deadline: initialData?.deadline || new Date(), // дедлайн (необязательно)
     resources: initialData?.resources || [""], // массив URL ресурсов
     notes: initialData?.notes || "",
@@ -150,36 +174,22 @@ export default function AddTechnologyForm({
   }, [formData]);
 
   return (
-    <Form id="add-technology-form">
-      <div
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
-        {isSubmitting && "Отправка формы..."}
-        {submitSuccess && "Форма успешно отправлена!"}
-      </div>
-      <h2>Добавить технологию</h2>
-      <Row>
-        <label htmlFor="technology-name">Название</label>
-        <div className="input-container required">
-          <input
-            id="technology-name"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? "error" : ""}
-            placeholder="Например: React, Node.js, TypeScript"
-            aria-describedby={errors.name ? "name-error" : undefined}
-            required
-          />
-          {errors.name && (
-            <ErrorMessage id="name-error">{errors.name}</ErrorMessage>
-          )}
-        </div>
-      </Row>
+    <Form
+      title="Добавить технологию"
+      id="add-technology-form"
+      isSubmitting={isSubmitting}
+      submitSuccess={submitSuccess}
+    >
+      <TextInputBlock
+        label="Название"
+        id="technology-name"
+        name="name"
+        type="text"
+        value={formData.name?.toString()}
+        error={errors.name}
+        errorId="name-error"
+        handleChange={handleChange}
+      />
       <Row>
         <label htmlFor="category">Категория</label>
         <div className="input-container">
@@ -225,124 +235,102 @@ export default function AddTechnologyForm({
           </select>
         </div>
       </Row>
-      <Row>
-        <label htmlFor="technology-description">Описание</label>
-        <div className="input-container required">
-          <textarea
-            id="technology-description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows={4}
-            className={errors.description ? "error" : ""}
-            placeholder="Опишите, что это за технология и зачем её изучать..."
-            aria-describedby={
-              errors.description ? "description-error" : undefined
-            }
-          />
-          {errors.description && (
-            <ErrorMessage id="description-error">
-              {errors.description}
-            </ErrorMessage>
-          )}
-        </div>
-      </Row>
-      <Row>
-        <label htmlFor="technology-notes">Заметки</label>
-        <div className="input-container">
-          <textarea
-            value={formData.notes}
-            onChange={handleChange}
-            className={errors.description ? "error" : ""}
-            aria-required="false"
-            id="technology-notes"
-            name="notes"
-            placeholder="Ваши заметки"
-            rows={4}
-            cols={40}
-            maxLength={1000}
-            aria-describedby={errors.notes ? "description-error" : undefined}
-          />
-          {errors.notes && (
-            <ErrorMessage id="notes-error">{errors.notes}</ErrorMessage>
-          )}
-        </div>
-      </Row>
-      <Row>
-        <label htmlFor="technology-deadline">Дедлайн</label>
-        <div className="input-container required">
-          <input
-            id="deadline"
-            name="deadline"
-            type="date"
-            value={formData.deadline?.toString()}
-            onChange={handleChange}
-            className={errors.deadline ? "error" : ""}
-            aria-describedby={errors.deadline ? "deadline-error" : undefined}
-          />
-          {errors.deadline && (
-            <ErrorMessage id="deadline-error">{errors.deadline}</ErrorMessage>
-          )}
-        </div>
-      </Row>
+      <TextInputBlock
+        label="Описание"
+        id="technology-description"
+        name="description"
+        type="textarea"
+        rows={4}
+        value={formData.description?.toString()}
+        error={errors.description}
+        errorId="description-error"
+        handleChange={handleChange}
+      />
+      <TextInputBlock
+        required={false}
+        label="Заметки"
+        id="technology-notes"
+        name="notes"
+        type="textarea"
+        rows={4}
+        cols={40}
+        value={formData.notes?.toString()}
+        error={errors.notes}
+        errorId="notes-error"
+        handleChange={handleChange}
+      />
+      <TextInputBlock
+        label="Начало изучения"
+        id="technology-start-date"
+        name="startDate"
+        type="date"
+        value={formData.startDate?.toString()}
+        error={errors.startDate}
+        errorId="start-date-error"
+        handleChange={handleChange}
+      />
+      <TextInputBlock
+        label="Дедлайн"
+        id="technology-deadline"
+        name="deadline"
+        type="date"
+        value={formData.deadline?.toString()}
+        error={errors.deadline}
+        errorId="deadline-error"
+        handleChange={handleChange}
+      />
       <Row>
         <label>Ресурсы для изучения</label>
-        {formData.resources.map((resource, index) => (
-          <div key={index} className="resource-field">
-            <input
-              type="url"
-              value={resource}
-              onChange={(e) => handleResourceChange(index, e.target.value)}
-              placeholder="https://example.com"
-              /* @ts-ignore */
-              className={errors[`resource_${index}`] ? "error" : ""}
-              aria-describedby={
-                /* @ts-ignore */
-                errors[`resource_${index}`]
-                  ? `resource-${index}-
-error`
-                  : undefined
-              }
-            />
-            {formData.resources.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeResourceField(index)}
-                className="btn-remove"
-                aria-label={`Удалить ресурс ${index + 1}`}
-              >
-                Удалить
-              </button>
-            )}
-            {/* @ts-ignore */}
-            {errors[`resource_${index}`] && (
-              <ErrorMessage id={`resource-${index}-error`}>
-                {/* @ts-ignore */}
-                {errors[`resource_${index}`]}
-              </ErrorMessage>
-            )}
-          </div>
-        ))}
-        <button
+        <div className="resources">
+          {formData.resources.map((resource, index) => (
+            <div key={index} className="resource-field">
+              <TextInputBlock
+                type="url"
+                name={`resource_${index}`}
+                value={resource}
+                label=""
+                placeholder="https://example.com"
+                id={`resource_${index}`}
+                errorId={`resource_${index}`}
+                handleChange={(e) =>
+                  handleResourceChange(index, e.target.value)
+                }
+              />
+              {formData.resources.length > 1 && (
+                <Button
+                  name="Удалить"
+                  type="button"
+                  onClick={() => removeResourceField(index)}
+                  className="btn-remove"
+                  aria-label={`Удалить ресурс ${index + 1}`}
+                />
+              )}
+              {/* @ts-ignore */}
+              {errors[`resource_${index}`] && (
+                <ErrorMessage id={`resource-${index}-error`}>
+                  {/* @ts-ignore */}
+                  {errors[`resource_${index}`]}
+                </ErrorMessage>
+              )}
+            </div>
+          ))}
+        </div>
+        <Button
+          name="Добавить ресурс"
           type="button"
           onClick={addResourceField}
           className="btn-add-resource"
-        >
-          Добавить ресурс
-        </button>
+        />
       </Row>
       <div className="action-buttons">
-        <button onClick={onCancel} className="btn-secondary">
-          Отменить
-        </button>
-        <button
+        <Button name="Отменить" onClick={onCancel} className="btn-secondary" />
+        <Button
+          name="Подтвердить"
           type="submit"
           onClick={handleSubmit}
           className="btn-primary"
           disabled={!isFormValid}
-        >
-          Создать
-        </button>
+        />
       </div>
     </Form>
   );

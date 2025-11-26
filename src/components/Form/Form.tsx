@@ -1,8 +1,8 @@
 import { ComponentProps } from "react";
 
 interface FormProps extends ComponentProps<"form"> {
-  isSubmitting?: boolean;
-  submitSuccess?: boolean;
+  isSubmitting: boolean;
+  submitSuccess: boolean;
 }
 
 export default function Form(props: FormProps) {
@@ -25,7 +25,9 @@ export default function Form(props: FormProps) {
           Спасибо! Ваше сообщение успешно отправлено.
         </div>
       )}
+      {/* @ts-ignore */}
       <form {...props} className="form">
+        <h2>{props.title}</h2>
         {props.children}
       </form>
     </div>

@@ -6,7 +6,7 @@ export default function AddTechnologyPage() {
   const { addTechnology } = useTechnologies();
 
   return (
-    <main>
+    <main className="flex-center">
       <AddTechnologyForm onCancel={() => {}} onSave={addTechnology} />
     </main>
   );
