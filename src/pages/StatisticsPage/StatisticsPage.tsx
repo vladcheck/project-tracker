@@ -6,7 +6,7 @@ export default function StatisticsPage() {
   const { technologies, progress } = useTechnologies();
 
   return (
-    <main>
+    <main className="flex-center">
       <Statistics
         stats={{
           progress,

@@ -1,13 +1,10 @@
 export default function NotFound() {
   return (
     <main
+      className="flex-center"
       style={{
         width: "100vw",
         maxHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <h1>Ой! Что-то сломалось :/</h1>

@@ -4,7 +4,7 @@ export default function HomePage() {
   const [username] = useLocalStorage("username", "Гость");
 
   return (
-    <main>
+    <main className="flex-center">
       <h1>Привет, {username}!</h1>
     </main>
   );
