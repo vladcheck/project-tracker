@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/project-roadmap/",
+  base: "/",
   build: {
     assetsDir: "./public",
   },
